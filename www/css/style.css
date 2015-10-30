@@ -1,1 +1,8 @@
 /* Empty. Add your own CSS if you like */
+* {
+    font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !important;
+}
+
+input[readonly]:not(.cloned-text-input) {background:none}
+
+

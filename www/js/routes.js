@@ -37,6 +37,11 @@ angular.module('app.routes', [])
     .state('dapa.recover', {
       url: '/recover',
       templateUrl: 'templates/recover.html'
+    })
+
+    .state('dapa.profile', {
+      url: '/profile',
+      templateUrl: 'templates/profile.html'
     });
 
   // if none of the above states are matched, use this as the fallback

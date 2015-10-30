@@ -1,0 +1,31 @@
+<ion-view style="" title="Profile" ng-init="ui.style.inputs = {width:'100%', background: rgba(0,0,0,0), borderBottom: '1px solid rgba(0,0,0,.2)', padding:'4px'}">
+    <div ng-style="{display:'flex', justifyContent:'space-between', width:'100%'}">
+        <button ui-sref="dapa.form" class="button button-assertive button-clear button-icon icon ion-ios-arrow-back"> Back</button>
+        <button ng-click="ui.editProfile = true" class="button button-clear button-assertive">Edit</button>
+    </div>
+    <ion-content class="has-header has-footer" padding="true">
+        <h4 ng-style="{textAlign:'center'}">Your profile</h4>
+
+        <form action="" name="profile">
+            <div style="" ng-init="user.first_name = 'mark'">
+                <label style="" class="">
+                    <span class="input-label">FIRST NAME</span>
+                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.first_name" ng-readonly="!ui.editProfile">
+                </label>
+                <label style="" class="">
+                    <span class="input-label">LAST NAME</span>
+                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.last_name" ng-readonly="!ui.editProfile">
+                </label>
+                <label style="" class="">
+                    <span class="input-label">EMAIL</span>
+                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.email" ng-readonly="!ui.editProfile">
+                </label>
+                <label style="" class="">
+                    <span class="input-label">PASSWORD</span>
+                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.password" ng-readonly="!ui.editProfile">
+                </label>
+            </div>
+        </form>
+        <button ng-click="$parent.$parent.dapa.api.logout(user)" ui-sref="dapa.welcome" class="button button-clear button-block ">Log out</button>
+    </ion-content>
+</ion-view>
