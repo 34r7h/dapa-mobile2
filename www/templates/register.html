@@ -6,25 +6,29 @@
             <ion-list style="">
                 <label style="" class="item item-input">
                     <span class="input-label">FIRST NAME</span>
-                    <input placeholder="" type="text">
+                    <input placeholder="" type="text" ng-model="user.first_name">
                 </label>
                 <label style="" class="item item-input">
                     <span class="input-label">LAST NAME</span>
-                    <input placeholder="" type="text">
+                    <input placeholder="" type="text" ng-model="user.last_name">
                 </label>
                 <label style="" class="item item-input">
                     <span class="input-label">EMAIL</span>
-                    <input placeholder="" type="text">
+                    <input placeholder="" type="text" ng-model="user.email">
                 </label>
                 <label style="" class="item item-input">
                     <span class="input-label">PASSWORD</span>
-                    <input placeholder="" type="text">
+                    <input placeholder="" type="text" ng-model="user.password">
+                </label>
+                <label style="" class="item item-input">
+                    <span class="input-label">CONFIRM PASSWORD</span>
+                    <input placeholder="" type="text" ng-model="user.password_confirmation">
                 </label>
             </ion-list>
             <div style="">
                 <p>By signing up, you agree to the <a href>Privacy Policy</a> &amp; <a href="">Terms of Service</a>.</p>
             </div>
-            <button ui-sref="dapa.form" class="button button-assertive button-block ">Continue</button>
+            <button ng-click="$parent.$parent.dapa.api.register(user)" ui-sref="dapa.form" class="button button-assertive button-block ">Continue</button>
         </form>
     </ion-content>
 </ion-view>

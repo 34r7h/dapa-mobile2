@@ -9,7 +9,6 @@ angular.module('app.routes', [])
   $stateProvider
 
     .state('dapa', {
-      url: '',
       // abstract: true,
       template: '<ui-view></ui-view>',
       controller: 'dapaCtrl as dapa'
