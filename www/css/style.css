@@ -1,8 +1,25 @@
 /* Empty. Add your own CSS if you like */
-* {
-    font-family: "Helvetica Neue", "Roboto", "Segoe UI", sans-serif !important;
+input[readonly] {background:rgba(0,0,0,0);}
+
+.flex-parent {
+    display: flex;}
+
+.flex-column {
+    flex-direction: column;
 }
 
-input[readonly]:not(.cloned-text-input) {background:none}
+.space-between {
+    justify-content: space-between;
+}
 
+.space-around {
+    justify-content: space-around;
+}
 
+.flex {flex: 0 0 auto}
+
+.button.button-assertive {
+    border-color: rgba(112, 17, 43, 1);
+    background-color: rgba(112, 17, 43, 1);
+    color: #fff;
+}
