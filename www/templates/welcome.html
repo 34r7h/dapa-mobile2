@@ -1,12 +1,17 @@
-<ion-view style="" title="Welcome">
-    <ion-content class="has-header" padding="true">
-        <article class="flex-parent flex-column space-between">
-            <h1 style="">Welcome</h1>
-            <p>Here, you'll be able to complete our forms and submit them. Create an account or sign in to continue.</p>
-            <div>
-                <a class="button button-assertive button-block " ng-href="#/register">Create an account</a>
-                <a class="button button-light button-block " ui-sref="dapa.login">Log in</a>
+<ion-view title="Welcome">
+    <ion-content padding="true">
+    <div class="flex-column between" ng-style="{height:($parent.dapa.ui.dHeight-20)+'px'}">
+            <div class="flex-column end welcome col text-center"
+                    >
+                <div class="col flex-column end">
+                    <h1>Welcome!</h1>
+                    <p>Here, you'll be able to complete our forms and submit them. Create an account or sign in to continue.</p>
+                </div>
             </div>
-        </article>
-    </ion-content>
+            <div class="col flex-column end h-center">
+                <div style="width:80%;"><a class="button button-assertive button-block " ng-href="#/register">Create an account</a>
+                <a class="button button-light button-block " ui-sref="dapa.login">Log in</a></div>
+            </div>
+        </div>
+        </ion-content>
 </ion-view>

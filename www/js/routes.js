@@ -42,6 +42,11 @@ angular.module('app.routes', [])
     .state('dapa.profile', {
       url: '/profile',
       templateUrl: 'templates/profile.html'
+    })
+
+    .state('dapa.editProfile', {
+      url: '/edit-profile',
+      templateUrl: 'templates/edit-profile.html'
     });
 
   // if none of the above states are matched, use this as the fallback

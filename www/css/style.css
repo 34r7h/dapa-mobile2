@@ -1,25 +1,35 @@
 /* Empty. Add your own CSS if you like */
+input[type="text"], input[type="password"] {
+    border-bottom: 1px solid gainsboro;
+    width: 100%;
+    margin: 0 0 1em 0;
+}
 input[readonly] {background:rgba(0,0,0,0);}
+label {color: gray; font-weight: 700}
 
-.flex-parent {
-    display: flex;}
 
 .flex-column {
-    flex-direction: column;
+    display: flex; flex-direction: column;
 }
-
-.space-between {
+.end {
+    justify-content: flex-end;
+}
+.between {
     justify-content: space-between;
 }
-
-.space-around {
-    justify-content: space-around;
+.center {
+    justify-content: center;
 }
-
-.flex {flex: 0 0 auto}
+.h-center {
+    align-items: center;
+}
 
 .button.button-assertive {
     border-color: rgba(112, 17, 43, 1);
     background-color: rgba(112, 17, 43, 1);
     color: #fff;
+}
+
+.button.button-assertive.button-clear {
+    color: rgba(112, 17, 43, 1);
 }

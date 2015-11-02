@@ -1,5 +1,11 @@
 angular.module('app.services', [])
-
+.service('Ui', ['$window', function ($window) {
+		var ui = {
+			dHeight: $window.innerHeight,
+			dWidth: $window.innerWidth
+		};
+		return ui;
+	}])
 .service('Api', ['$ionicHistory', '$http', function($ionicHistory, $http){
 		var baseUrl = 'http://api.dapa.dev:3000';
 		var api = {

@@ -1,5 +1,9 @@
 <ion-view style="" title="Form">
-    <button ui-sref="dapa.login" class="button-icon icon ion-ios-arrow-back">Back</button>
+    <div ng-style="{display:'flex', justifyContent:'space-between', width:'100%'}">
+        <button ui-sref="dapa.profile" class="button button-assertive button-clear button-icon icon ion-ios-person-outline"></button>
+        <!-- TODO insert save method-->
+        <button ng-click="ui.editForm = true" class="button button-clear button-assertive">Edit</button>
+    </div>
     <ion-content class="has-header has-footer" padding="true">
         <form style="" class="list">
             <h3 style="">Future form</h3>
