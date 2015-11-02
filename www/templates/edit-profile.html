@@ -6,7 +6,7 @@
         </button>
         <div>
             <!-- TODO insert save method-->
-            <button ng-click="ui.editProfile = !ui.editProfile"
+            <button ui-sref="dapa.profile"  ng-click="ui.editProfile = !ui.editProfile"
                     class="button button-clear button-assertive">Done
             </button>
         </div>
@@ -17,7 +17,7 @@
             <h4 ng-style="{textAlign:'center'}">Your profile</h4>
 
             <form action="" name="profile">
-                <div style="" ng-init="user.first_name = 'mark'">
+                <div style="">
                     <label style="" class="">
                         <span class="input-label">FIRST NAME</span>
                         <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.first_name"
