@@ -1,16 +1,23 @@
-<ion-view style="" title="Recover Password">
-    <button ui-sref="dapa.login" class="button button-assertive button-clear button-icon icon ion-ios-arrow-back"> Back</button>
-    <ion-content class="has-header" padding="true">
-        <h3 style="">Recover your password</h3>
-        <div style="">
-            <p>Forgot your password? Don't worry - just type your email below and we'll send you a link to reset it.</p>
-        </div>
-        <form style="" >
+<div class="flex-column" style="height: 100vh; align-items: center; -webkit-align-items: center">
+    <button ui-sref="dapa.login" class=" button button-assertive button-clear button-icon icon ion-ios-arrow-back"
+            style="width:80px; align-self: flex-start; -webkit-align-self: flex-start">
+        Back
+    </button>
+
+    <div class="" style="width:90%;">
+        <h4 class="text-center">Recover your password</h4>
+        <br>
+
+        <form style="">
             <label name="email">
                 <div>EMAIL</div>
                 <input placeholder="" ng-model="recoverEmail" type="text">
             </label>
-            <button ui-sref="dapa.login" class="button button-dark button-block" ng-click="api.recover(recoverEmail)">Continue</button>
         </form>
-    </ion-content>
-</ion-view>
+    </div>
+    <div style="width:80%;min-width:80%;">
+        <button ui-sref="dapa.login" class="button button-dark button-block" ng-click="api.recover(recoverEmail)">
+            Recover Password
+        </button>
+    </div>
+</div>

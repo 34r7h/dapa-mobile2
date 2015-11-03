@@ -1,49 +1,50 @@
-<ion-view style="" title="Registration">
-    <button ui-sref="dapa.welcome" class="button button-assertive button-clear button-icon icon ion-ios-arrow-back">
+<div class="flex-column" style="height: 100vh; align-items: center; -webkit-align-items: center">
+    <button ui-sref="dapa.welcome"
+            class=" button button-assertive button-clear button-icon icon ion-ios-arrow-back"
+            style="align-self: flex-start; -webkit-align-self: flex-start">
         Back
     </button>
-    <ion-content class="has-header" scroll="false" padding="true">
+
+    <form class="" style="width:90%;">
         <h4 class="text-center">Create an account</h4>
+        <br>
+        <label name="first-name">
+            <div class="">FIRST NAME</div>
+            <input placeholder="" type="text" ng-model="user.first_name">
+        </label>
+        <label name="last-name">
+            <div class="">LAST NAME</div>
+            <input placeholder="" type="text" ng-model="user.last_name">
+        </label>
+        <label name="email">
+            <div class="">EMAIL</div>
+            <input placeholder="" type="text" ng-model="user.email">
+        </label>
+        <label name="password">
+            <div class="">PASSWORD</div>
+            <input placeholder="" type="text" ng-model="user.password">
+        </label>
+        <label name="confirm-password">
+            <div class="">CONFIRM PASSWORD</div>
+            <input placeholder="" type="text" ng-model="user.password_confirmation">
+        </label>
+    </form>
 
-        <div class="flex-column center h-center padded"
-             ng-style="{height:($parent.dapa.ui.dHeight-150)+'px'}">
-            <form class="col-90 flex-column ">
-                <label name="first-name">
-                    <div class="">FIRST NAME</div>
-                    <input placeholder="" type="text" ng-model="user.first_name">
-                </label>
-                <label name="last-name">
-                    <div class="">LAST NAME</div>
-                    <input placeholder="" type="text" ng-model="user.last_name">
-                </label>
-                <label name="email">
-                    <div class="">EMAIL</div>
-                    <input placeholder="" type="text" ng-model="user.email">
-                </label>
-                <label name="password">
-                    <div class="">PASSWORD</div>
-                    <input placeholder="" type="text" ng-model="user.password">
-                </label>
-                <label name="confirm-password">
-                    <div class="">CONFIRM PASSWORD</div>
-                    <input placeholder="" type="text" ng-model="user.password_confirmation">
-                </label>
+    <div class="col flex-column end h-center text-center">
+        <p style="width:80%;">By signing up, you agree to the <a href class="dark">Privacy Policy</a> &amp; <a href
+                                                                                                               class="dark">Terms
+            of Service</a>.
+        </p>
 
-                <div class="text-center flex-column center h-center">
-                    <div style="height: 40px;" class="spacer"></div>
-
-                    <div style="width:80%;">
-                        <p>By signing up, you agree to the <a href class="dark">Privacy Policy</a> &amp; <a href class="dark">Terms of Service</a>.
-                        </p>
-                    </div>
-                    <button
-                            ng-click="$parent.$parent.dapa.api.register(user)"
-                            ui-sref="dapa.form"
-                            class="button button-assertive button-block"
-                            style="width:80%;">Continue
-                    </button>
-                </div>
-            </form>
+        <div
+                ui-sref="dapa.form"
+                class="button button-assertive button-block"
+                ng-click="$parent.$parent.dapa.api.login(user)"
+                style="width:80%;min-width:80%;">
+            Continue
         </div>
-    </ion-content>
-</ion-view>
+        <a ui-sref="dapa.recover" class="button button-dark button-clear ">
+            Forgot your password?
+        </a>
+    </div>
+</div>

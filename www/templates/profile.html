@@ -1,47 +1,47 @@
-<ion-view style="" title="Profile"
-          ng-init="ui.style.inputs = {width:'100%', background: rgba(0,0,0,0), borderBottom: '1px solid rgba(0,0,0,.2)', padding:'4px'}">
-    <div ng-style="{display:'flex', justifyContent:'space-between', width:'100%', minWidth:'100%'}">
-        <button ui-sref="dapa.form" class="button button-assertive button-clear button-icon icon ion-ios-arrow-back">
-            Back
-        </button>
-        <div>
+<div style="height: 100vh; align-items: center; -webkit-align-items: center" class="flex-column">
+    <div class="flex-row between" style="width: 100vw;" >
+        <div class="text-left float" style="float:left">
+            <button ui-sref="dapa.form"
+                    class="button button-assertive button-clear button-icon icon ion-ios-arrow-back">
+                Back
+            </button>
+        </div>
+        <div class="text-right">
             <button ui-sref="dapa.editProfile"
-                    class="button button-clear button-assertive">Edit
+                    class="button button-clear button-assertive"
+            >Edit
             </button>
         </div>
     </div>
-    <ion-content class="has-header has-footer" padding="true">
-        <div class="flex-column between padded"
-             ng-style="{height:($parent.dapa.ui.dHeight-130)+'px'}">
-            <h4 ng-style="{textAlign:'center'}">Your profile</h4>
+    <div class="" style="width:90%;">
+        <h4 ng-style="{textAlign:'center'}">Your profile</h4>
+        <br>
+        <form action="" name="profile">
+            <div style="">
+                <label style="" class="">
+                    <span class="input-label">FIRST NAME</span>
+                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.first_name"
+                           ng-readonly="!ui.editProfile">
+                </label>
+                <label style="" class="">
+                    <span class="input-label">LAST NAME</span>
+                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.last_name"
+                           ng-readonly="!ui.editProfile">
+                </label>
+                <label style="" class="">
+                    <span class="input-label">EMAIL</span>
+                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.email"
+                           ng-readonly="!ui.editProfile">
+                </label>
+                <label style="" class="">
+                    <span class="input-label">PASSWORD</span>
+                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.password"
+                           ng-readonly="!ui.editProfile">
+                </label>
+            </div>
+        </form>
+    </div>
+    <div style="width:80%;min-width:80%;">
+            <a class="button button-light button-block" ng-click="$parent.$parent.dapa.api.logout(user)" ui-sref="dapa.welcome">Log out</a></div>
 
-            <form action="" name="profile">
-                <div style="">
-                    <label style="" class="">
-                        <span class="input-label">FIRST NAME</span>
-                        <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.first_name"
-                               ng-readonly="!ui.editProfile">
-                    </label>
-                    <label style="" class="">
-                        <span class="input-label">LAST NAME</span>
-                        <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.last_name"
-                               ng-readonly="!ui.editProfile">
-                    </label>
-                    <label style="" class="">
-                        <span class="input-label">EMAIL</span>
-                        <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.email"
-                               ng-readonly="!ui.editProfile">
-                    </label>
-                    <label style="" class="">
-                        <span class="input-label">PASSWORD</span>
-                        <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="user.password"
-                               ng-readonly="!ui.editProfile">
-                    </label>
-                </div>
-            </form>
-            <button ng-click="$parent.$parent.dapa.api.logout(user)" ui-sref="dapa.welcome"
-                    class="button button-light button-block ">Log out
-            </button>
-        </div>
-    </ion-content>
-</ion-view>
+</div>

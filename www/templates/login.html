@@ -1,35 +1,33 @@
-<ion-view title="Login">
-    <button ui-sref="dapa.welcome" class="button button-assertive button-clear button-icon icon ion-ios-arrow-back"> Back</button>
-    <ion-content class="has-header has-footer" padding="true">
-        <h4 class="text-center">Log in to your account</h4>
-        <div
-                class="flex-column center h-center padded"
-                ng-style="{height:($parent.dapa.ui.dHeight-150)+'px'}">
-            <form class="col">
-                <label name="email" class="">
-                    <div>EMAIL</div>
-                    <input placeholder="" type="text" ng-model="user.email">
-                </label>
-                <div style="height: 40px;" class="spacer"></div>
-                <label name="password" class="">
-                    <div>PASSWORD</div>
-                    <input placeholder="" type="password" ng-model="user.password">
-                </label>
-                <div style="height: 40px;" class="spacer"></div>
+<div class="flex-column" style="height: 100vh; align-items: center; -webkit-align-items: center">
+    <button ui-sref="dapa.welcome" class=" button button-assertive button-clear button-icon icon ion-ios-arrow-back"
+            style="width:80px; align-self: flex-start; -webkit-align-self: flex-start">
+        Back
+    </button>
 
-                <div class="text-center flex-column center h-center">
-                    <div 
-                            ui-sref="dapa.form" 
-                            class="button button-assertive button-block" 
-                            ng-click="$parent.$parent.dapa.api.login(user)"
-                            style="width:80%;">
-                        Continue
-                    </div>
-                    <a ui-sref="dapa.recover" class="button button-dark button-clear ">
-                        Forgot your password?
-                    </a>
-                </div>
-            </form>
+    <div class="" style="width:90%;">
+        <h4 class="text-center ">Log in to your account</h4>
+        <br>
+        <form class="">
+            <label name="email" class="text-left">
+                <div>EMAIL</div>
+                <input placeholder="" type="text" ng-model="user.email">
+            </label>
+            <label name="password" class="text-left">
+                <div>PASSWORD</div>
+                <input placeholder="" type="password" ng-model="user.password">
+            </label>
+        </form>
+    </div>
+
+    <div style="width:80%;min-width:80%;">
+        <div
+                ui-sref="dapa.form"
+                class="button button-assertive button-block"
+                ng-click="$parent.$parent.dapa.api.login(user)">
+            Continue
         </div>
-    </ion-content>
-</ion-view>
+        <a ui-sref="dapa.recover" class="button button-dark button-clear" style="width:100%;">
+            Forgot your password?
+        </a>
+    </div>
+</div>
