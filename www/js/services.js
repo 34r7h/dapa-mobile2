@@ -1,7 +1,3 @@
-var fb = Firebase;
-var dapaRef = 'https://irthos.firebaseio.com/dapa';
-fbRef = new fb(dapaRef);
-
 angular.module('app.services', [])
 .service('Ui', ['$window', function ($window) {
 		var ui = {
@@ -10,9 +6,13 @@ angular.module('app.services', [])
 		};
 		return ui;
 	}])
-.service('Api', ['$ionicHistory', '$http', '$firebaseObject', '$firebaseArray', '$firebaseAuth', function($ionicHistory, $http, $firebaseObject, $firebaseArray, $firebaseAuth){
+.service('Api', ['$ionicHistory', '$http', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', function($ionicHistory, $http, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase){
 		var baseUrl = 'http://api.dapa.dev:3000';
 		var api = {};
+
+		var fb = Firebase;
+		var dapaRef = 'https://irthos.firebaseio.com/dapa';
+		var fbRef = new fb(dapaRef);
 
 		var api = {
 			fbTest: function (data) {
