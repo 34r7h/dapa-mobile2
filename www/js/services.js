@@ -12,6 +12,8 @@ angular.module('app.services', [])
 	}])
 .service('Api', ['$ionicHistory', '$http', '$firebaseObject', '$firebaseArray', '$firebaseAuth', function($ionicHistory, $http, $firebaseObject, $firebaseArray, $firebaseAuth){
 		var baseUrl = 'http://api.dapa.dev:3000';
+		var api = {};
+
 		var api = {
 			fbTest: function (data) {
 				var fbObject = $firebaseObject(fbRef);
@@ -32,19 +34,19 @@ angular.module('app.services', [])
 				fbAuth.$createUser({
 					email: user.email,
 					password: user.password
-				}).then(function(userData) {
-					console.log("User " + userData.uid + " created successfully!");
+				}).then(function() {
 					return fbAuth.$authWithPassword({
 						email: user.email,
 						password: user.password
 					});
 				}).then(function(authData) {
-					console.log("Logged in as:", authData.uid);
-					user.password = null;
 					var fbObject = $firebaseObject(fbRef.child('users'));
 					fbObject.$loaded().then(function () {
 						fbObject[authData.uid] = user;
-						fbObject.$save();
+						fbObject.$save().then(function () {
+							api.setUserData();
+
+						});
 					})
 
 				}).catch(function(error) {
@@ -70,6 +72,30 @@ angular.module('app.services', [])
 				});
 			},
 			login: function (user) {
+
+
+				/*
+				*
+					*  Mock login using Firebase
+				*
+				* */
+
+				var fbAuth = $firebaseAuth(fbRef);
+				fbAuth.$authWithPassword({
+					email: user.email,
+					password: user.password
+				}).then(function (authData) {
+						api.setUserData();
+				}).catch(function(error) {
+					console.error("Authentication failed:", error);
+				});
+
+				/*
+				*
+					*  End Mock login using Firebase
+				*
+				* */
+
 				console.log('logging in', user);
 				$http.post(baseUrl + '/sessions', {
 					headers:{
@@ -81,8 +107,46 @@ angular.module('app.services', [])
 				}).error(function (data) {
 					console.error('error', data)
 				});
+			},
+			logout: function () {
+				var fbAuth = $firebaseAuth(fbRef);
+				api.userData = null;
+				api.auth = null;
+				fbAuth.$unauth()
+			},
+			updateUser: function (user) {
+				/*
+				*
+				*  Mock update via Firebase
+				*
+				* */
+
+				var fbObject = $firebaseObject(fbRef.child('users'));
+				fbObject.$loaded().then(function (data) {
+					console.log(api.auth.uid);
+					data[api.auth.uid] = user;
+					data.$save();
+				});
+
+				/*
+				*
+			 	*  End mock update via Firebase
+				*
+				*
+				* */
+			},
+			setUserData: function () {
+				var fbAuth = $firebaseAuth(fbRef);
+				var auth = fbAuth.$getAuth();
+				if(auth){
+					api.userData = $firebaseObject(fbRef.child('users/'+ auth.uid));
+					api.auth = auth;
+				} else {
+					console.log('not logged in');
+				}
 			}
 		};
+		api.setUserData();
 		return api;
 }]);
 

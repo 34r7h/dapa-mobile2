@@ -23,7 +23,7 @@
         <div
                 ui-sref="dapa.form"
                 class="button button-assertive button-block"
-                ng-click="$parent.$parent.dapa.api.login(user)">
+                ng-click="dapa.user = dapa.api.login(user);">
             Continue
         </div>
         <a ui-sref="dapa.recover" class="button button-dark button-clear" style="width:100%;">

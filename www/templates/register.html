@@ -39,7 +39,7 @@
         <div
                 ui-sref="dapa.form"
                 class="button button-assertive button-block"
-                ng-click="dapa.api.register(user)"
+                ng-click="dapa.api.register(user); dapa.user = user; dapa.api.userData = user"
                 style="width:80%;min-width:80%;">
             Continue
         </div>
