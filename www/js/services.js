@@ -119,7 +119,6 @@ angular.module('app.services', [])
 
 				var fbObject = $firebaseObject(fbRef.child('users'));
 				fbObject.$loaded().then(function (data) {
-					console.log(api.auth.uid);
 					data[api.auth.uid] = user;
 					data.$save();
 				});
