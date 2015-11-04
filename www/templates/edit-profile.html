@@ -1,7 +1,7 @@
-<form name="profile" novalidate class="css-form flex-column center-container">
+<form name="profile" novalidate class="css-form flex-column center-container" ng-submit="$parent.dapa.api.userData.password = newPassword || $parent.dapa.api.userData.password; $parent.dapa.api.userData.email = newEmail || $parent.dapa.api.userData.email; dapa.api.updateUser(dapa.api.userData)">
     <div class="flex-row between w100">
         <div class="text-left float-left">
-            <button ui-sref="dapa.form"
+            <button type="button" ui-sref="dapa.form"
                     class="button button-assertive button-clear button-icon icon ion-ios-arrow-back">
                 Back
             </button>
@@ -10,10 +10,7 @@
             <button ui-sref="dapa.profile"
                     class="button button-clear button-assertive"
                     ng-disabled="$parent.newPassword !== $parent.confirmPassword || $parent.newEmail !== $parent.confirmEmail"
-                    ng-click="
-                    $parent.dapa.api.userData.password = newPassword || $parent.dapa.api.userData.password;
-                    $parent.dapa.api.userData.email = newEmail || $parent.dapa.api.userData.email;
-                    dapa.api.updateUser(dapa.api.userData)">
+                    type="submit">
                 <span ng-show="$parent.newPassword !== $parent.confirmPassword || $parent.newEmail !== $parent.confirmEmail" class="assertive">
                     Please confirm emails and/or passwords match
                 </span> Done

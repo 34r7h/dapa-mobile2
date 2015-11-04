@@ -1,4 +1,4 @@
-<form name="login" class="flex-column center-container" >
+<form name="login" class="flex-column center-container" ng-submit="dapa.user = dapa.api.login(user);">
     <button ui-sref="dapa.welcome" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
         Back
     </button>
@@ -24,7 +24,6 @@
         <div
                 ui-sref="dapa.form"
                 class="button button-assertive button-block"
-                ng-click="dapa.user = dapa.api.login(user);"
                 ng-disabled="login.$invalid">
             Continue
         </div>
