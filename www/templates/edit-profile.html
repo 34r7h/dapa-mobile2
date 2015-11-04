@@ -1,6 +1,6 @@
-<div style="height: 100vh; align-items: center; -webkit-align-items: center" class="flex-column">
-    <div class="flex-row between" style="width: 100vw;" >
-        <div class="text-left float" style="float:left">
+<form name="profile" novalidate class="css-form flex-column center-container">
+    <div class="flex-row between w100">
+        <div class="text-left float-left">
             <button ui-sref="dapa.form"
                     class="button button-assertive button-clear button-icon icon ion-ios-arrow-back">
                 Back
@@ -9,40 +9,47 @@
         <div class="text-right">
             <button ui-sref="dapa.profile"
                     class="button button-clear button-assertive"
-                    ng-click="dapa.api.updateUser(dapa.api.userData)"
-            >Done
+                    ng-disabled="$parent.newPassword !== $parent.confirmPassword || $parent.newEmail !== $parent.confirmEmail"
+                    ng-click="
+                    $parent.dapa.api.userData.password = newPassword || $parent.dapa.api.userData.password;
+                    $parent.dapa.api.userData.email = newEmail || $parent.dapa.api.userData.email;
+                    dapa.api.updateUser(dapa.api.userData)">
+                <span ng-show="$parent.newPassword !== $parent.confirmPassword || $parent.newEmail !== $parent.confirmEmail" class="assertive">
+                    Please confirm emails and/or passwords match
+                </span> Done
             </button>
         </div>
     </div>
-    <div class="" style="width:90%;">
-        <h4 ng-style="{textAlign:'center'}">Edit profile</h4>
+    <div class="w90">
+        <h4 class="text-center">Edit profile</h4>
         <br>
-        <form action="" name="profile">
-            <div style="">
-                <label style="" class="">
-                    <span class="input-label">FIRST NAME</span>
-                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="$parent.dapa.api.userData.first_name"
-                           >
+            <div>
+                <label>
+                    <div>NEW EMAIL ADDRESS</div>
+                    <input placeholder="Type your new email here" type="email" ng-model="$parent.newEmail">
                 </label>
-                <label style="" class="">
-                    <span class="input-label">LAST NAME</span>
-                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="$parent.dapa.api.userData.last_name"
-                           >
+                <label>
+                    <div>CONFIRM</div>
+                    <input placeholder="Confirm your email address" type="email" ng-model="$parent.confirmEmail">
+                    <p class="assertive" ng-show="$parent.confirmEmail.length > 0 && $parent.confirmEmail !== $parent.newEmail">Email addresses do not match.</p>
                 </label>
-                <label style="" class="">
-                    <span class="input-label">EMAIL</span>
-                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="$parent.dapa.api.userData.email"
-                           >
+                <label>
+                    <div>OLD PASSWORD</div>
+                    <input placeholder="Enter your old password" type="text" ng-model="$parent.oldPassword">
+                    <p class="assertive" ng-show="$parent.oldPassword.length > 0 && $parent.oldPassword !== $parent.dapa.api.userData.password">Old password is not correct</code>
                 </label>
-                <label style="" class="">
-                    <span class="input-label">PASSWORD</span>
-                    <input ng-style="ui.style.inputs" placeholder="" type="text" ng-model="$parent.dapa.api.userData.password"
-                           >
+                <label>
+                    <div>NEW PASSWORD</div>
+                    <input placeholder="Enter your new password" type="password" ng-model="$parent.newPassword" ng-disabled="$parent.oldPassword !== $parent.dapa.api.userData.password">
                 </label>
-            </div>
-        </form>
+                <label>
+                    <div>CONFIRM</div>
+                    <input ng-disabled="!$parent.newPassword" placeholder="Confirm your new password" type="password" ng-model="$parent.confirmPassword">
+                    <p class="assertive" ng-show="$parent.confirmPassword.length > 0 && $parent.confirmPassword !== $parent.newPassword">Passwords do not match.</p>
+                </label>
+        </div>
     </div>
-    <div style="width:80%;min-width:80%;">
+    <div class="w80">
         <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a></div>
 
-</div>
+</form>

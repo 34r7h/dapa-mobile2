@@ -1,33 +1,35 @@
-<div class="flex-column" style="height: 100vh; align-items: center; -webkit-align-items: center">
-    <button ui-sref="dapa.welcome" class=" button button-assertive button-clear button-icon icon ion-ios-arrow-back"
-            style="width:80px; align-self: flex-start; -webkit-align-self: flex-start">
+<form name="login" class="flex-column center-container" >
+    <button ui-sref="dapa.welcome" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
         Back
     </button>
 
-    <div class="" style="width:90%;">
-        <h4 class="text-center ">Log in to your account</h4>
+    <div class="w90">
+        <h4 class="text-center">Log in to your account</h4>
         <br>
-        <form class="">
+        <div>
             <label name="email" class="text-left">
                 <div>EMAIL</div>
-                <input placeholder="" type="text" ng-model="user.email">
+                <input placeholder="Enter your email address" type="email" ng-model="user.email" required>
+                <p class="assertive" ng-show="login.$error.email">Please enter a valid email address</p>
+
             </label>
             <label name="password" class="text-left">
                 <div>PASSWORD</div>
-                <input placeholder="" type="password" ng-model="user.password">
+                <input placeholder="Enter your password" type="password" ng-model="user.password" required>
             </label>
-        </form>
+        </div>
     </div>
 
-    <div style="width:80%;min-width:80%;">
+    <div class="w80">
         <div
                 ui-sref="dapa.form"
                 class="button button-assertive button-block"
-                ng-click="dapa.user = dapa.api.login(user);">
+                ng-click="dapa.user = dapa.api.login(user);"
+                ng-disabled="login.$invalid">
             Continue
         </div>
-        <a ui-sref="dapa.recover" class="button button-dark button-clear" style="width:100%;">
+        <a ui-sref="dapa.recover" class="button button-dark button-clear w100">
             Forgot your password?
         </a>
     </div>
-</div>
+</form>

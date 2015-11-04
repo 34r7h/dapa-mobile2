@@ -1,47 +1,48 @@
-<div class="flex-column" style="height: 100vh; align-items: center; -webkit-align-items: center">
-    <button ui-sref="dapa.welcome"
-            class=" button button-assertive button-clear button-icon icon ion-ios-arrow-back"
-            style="align-self: flex-start; -webkit-align-self: flex-start">
+<form name="register" novalidate class="css-form flex-column center-container" ng-submit="dapa.api.register(user); dapa.user = user; dapa.api.userData = user">
+    <button type="button"
+            ui-sref="dapa.welcome"
+            class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
         Back
     </button>
 
-    <form class="" style="width:90%;">
+    <div class="w90">
         <h4 class="text-center">Create an account</h4>
         <br>
         <label name="first-name">
-            <div class="">FIRST NAME</div>
-            <input placeholder="" type="text" ng-model="user.first_name">
+            <div>FIRST NAME</div>
+            <input placeholder="" type="text" ng-model="user.first_name" required>
         </label>
         <label name="last-name">
-            <div class="">LAST NAME</div>
-            <input placeholder="" type="text" ng-model="user.last_name">
+            <div>LAST NAME</div>
+            <input placeholder="" type="text" ng-model="user.last_name" required>
         </label>
         <label name="email">
-            <div class="">EMAIL</div>
-            <input placeholder="" type="text" ng-model="user.email">
+            <div>EMAIL</div>
+            <input placeholder="" type="email" ng-model="user.email" required>
+            <p class="assertive" ng-show="register.$error.email">Please enter a valid email address</p>
         </label>
         <label name="password">
-            <div class="">PASSWORD</div>
-            <input placeholder="" type="text" ng-model="user.password">
+            <div>PASSWORD</div>
+            <input placeholder="Enter your password" type="password" ng-model="user.password" required>
         </label>
         <label name="confirm-password">
-            <div class="">CONFIRM PASSWORD</div>
-            <input placeholder="" type="text" ng-model="user.password_confirmation">
+            <div>CONFIRM PASSWORD</div>
+            <input placeholder="Confirm your password" type="password" ng-model="user.password_confirmation" required>
+            <p class="assertive" ng-show="user.password_confirmation.length > 0 && user.password_confirmation !== user.password">Passwords do not match.</p>
         </label>
-    </form>
+    </div>
 
     <div class="col flex-column end h-center text-center">
-        <p style="width:80%;">By signing up, you agree to the <a href class="dark">Privacy Policy</a> &amp; <a href
-                                                                                                               class="dark">Terms
+        <p class="w80">By signing up, you agree to the <a href class="dark">Privacy Policy</a> &amp; <a href class="dark">Terms
             of Service</a>.
         </p>
 
-        <div
+        <button
+                type="submit"
                 ui-sref="dapa.form"
-                class="button button-assertive button-block"
-                ng-click="dapa.api.register(user); dapa.user = user; dapa.api.userData = user"
-                style="width:80%;min-width:80%;">
+                class="w80 button button-assertive button-block"
+                ng-disabled="user.password !== user.password_confirmation || register.$invalid">
             Continue
-        </div>
+        </button>
     </div>
-</div>
+</form>

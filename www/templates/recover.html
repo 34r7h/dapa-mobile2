@@ -1,23 +1,23 @@
-<div class="flex-column" style="height: 100vh; align-items: center; -webkit-align-items: center">
-    <button ui-sref="dapa.login" class=" button button-assertive button-clear button-icon icon ion-ios-arrow-back"
-            style="width:80px; align-self: flex-start; -webkit-align-self: flex-start">
+<form name="recover" class="flex-column center-container" ng-submit="api.recover(recoverEmail)">
+    <button type="button" ui-sref="dapa.login" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
         Back
     </button>
 
-    <div class="" style="width:90%;">
+    <div class="w90">
         <h4 class="text-center">Recover your password</h4>
         <br>
 
-        <form style="">
+        <div>
             <label name="email">
                 <div>EMAIL</div>
-                <input placeholder="" ng-model="recoverEmail" type="text">
+                <input placeholder="Enter your email address" ng-model="recoverEmail" type="email" required>
+                <p class="assertive" ng-show="recover.$error.email">Please enter a valid email address</p>
             </label>
-        </form>
+        </div>
     </div>
-    <div style="width:80%;min-width:80%;">
-        <button ui-sref="dapa.login" class="button button-dark button-block" ng-click="api.recover(recoverEmail)">
+    <div class="w80">
+        <button type="submit" ui-sref="dapa.login" class="button button-dark button-block" ng-disabled="recover.$invalid">
             Recover Password
         </button>
     </div>
-</div>
+</form>
