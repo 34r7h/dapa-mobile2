@@ -1,4 +1,4 @@
-<div class="flex-column center-container">
+<form name="profile" class="flex-column center-container">
     <div class="flex-row between w100">
         <div class="float-left text-left float">
             <button ui-sref="dapa.form"
@@ -16,32 +16,31 @@
     <div class="w90" >
         <h4 class="text-center">Your profile</h4>
         <br>
-        <form name="profile">
-            <div>
-                <label>
-                    <span class="input-label">FIRST NAME</span>
-                    <input type="text" ng-model="$parent.dapa.api.userData.first_name"
-                           ng-readonly="!ui.editProfile">
-                </label>
-                <label>
-                    <span class="input-label">LAST NAME</span>
-                    <input type="text" ng-model="$parent.dapa.api.userData.last_name"
-                           ng-readonly="!ui.editProfile">
-                </label>
-                <label>
-                    <span class="input-label">EMAIL</span>
-                    <input type="text" ng-model="$parent.dapa.api.userData.email"
-                           ng-readonly="!ui.editProfile">
-                </label>
-                <label>
-                    <span class="input-label">PASSWORD</span>
-                    <input type="password" ng-model="$parent.dapa.api.userData.password"
-                           ng-readonly="!ui.editProfile">
-                </label>
-            </div>
-        </form>
+        <div>
+            <label>
+                <span class="input-label">FIRST NAME</span>
+                <input type="text" ng-model="$parent.dapa.api.userData.first_name"
+                       ng-readonly="!ui.editProfile">
+            </label>
+            <label>
+                <span class="input-label">LAST NAME</span>
+                <input type="text" ng-model="$parent.dapa.api.userData.last_name"
+                       ng-readonly="!ui.editProfile">
+            </label>
+            <label>
+                <span class="input-label">EMAIL</span>
+                <input type="text" ng-model="$parent.dapa.api.userData.email"
+                       ng-readonly="!ui.editProfile">
+            </label>
+            <label>
+                <span class="input-label">PASSWORD</span>
+                <input type="password" ng-model="$parent.dapa.api.userData.password"
+                       ng-readonly="!ui.editProfile">
+            </label>
+        </div>
+
     </div>
     <div class="w80">
-            <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a></div>
-
-</div>
+            <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a>
+    </div>
+</form>

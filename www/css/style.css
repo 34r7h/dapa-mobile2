@@ -22,11 +22,11 @@ html, body {
 /* Form Controls */
 
 .css-form input.ng-invalid.ng-touched {
-    background-color: rgba(228, 32, 18, .1);
+    background-color: rgba(228, 32, 18, .01);
 }
 
 .css-form input.ng-valid.ng-touched {
-    background-color: rgba(134, 247, 155, .2);
+    background-color: rgba(134, 247, 155, .02);
 }
 .css-form input.ng-valid.ng-pristine {
     background-color: #fff;
@@ -37,6 +37,7 @@ input[type="text"], input[type="password"], input[type="email"] {
     width: 100%;
     min-width: 100%;
     margin: 0 0 1em 0;
+    padding:2px;
 }
 input[readonly] {background:rgba(0,0,0,0);}
 label {

@@ -5,5 +5,7 @@ angular.module('app.controllers', [])
 		vm.api = Api;
 		vm.ui = Ui;
 		vm.user = vm.api.userData;
-		//$scope.api = Api;
+		console.log('api',vm.api);
+	vm.api.login({email:'i@o.io', password:'o'});
+	//$scope.api = Api;
 });

@@ -1,4 +1,4 @@
-<form name="profile" novalidate class="css-form flex-column center-container" ng-submit="$parent.dapa.api.userData.password = newPassword || $parent.dapa.api.userData.password; $parent.dapa.api.userData.email = newEmail || $parent.dapa.api.userData.email; dapa.api.updateUser(dapa.api.userData)">
+<form name="profile" novalidate class="css-form flex-column center-container" ng-submit="$parent.dapa.api.userData.password = newPassword || $parent.dapa.api.userData.password; $parent.dapa.api.userData.email = newEmail || $parent.dapa.api.userData.email; $parent.dapa.api.updateUser($parent.dapa.api.userData); $parent.dapa.api.go('dapa.profile');">
     <div class="flex-row between w100">
         <div class="text-left float-left">
             <button type="button" ui-sref="dapa.form"
@@ -7,7 +7,7 @@
             </button>
         </div>
         <div class="text-right">
-            <button ui-sref="dapa.profile"
+            <button
                     class="button button-clear button-assertive"
                     ng-disabled="$parent.newPassword !== $parent.confirmPassword || $parent.newEmail !== $parent.confirmEmail"
                     type="submit">

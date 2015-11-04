@@ -1,5 +1,5 @@
-<form name="login" class="flex-column center-container" ng-submit="dapa.user = dapa.api.login(user);">
-    <button ui-sref="dapa.welcome" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
+<form name="login" class="flex-column center-container" ng-submit="$parent.dapa.api.login($parent.user);$parent.dapa.api.go('dapa.form');">
+    <button type="button" ui-sref="dapa.welcome" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
         Back
     </button>
 
@@ -9,24 +9,25 @@
         <div>
             <label name="email" class="text-left">
                 <div>EMAIL</div>
-                <input placeholder="Enter your email address" type="email" ng-model="user.email" required>
+                <input placeholder="Enter your email address" type="email" ng-model="$parent.user.email" required>
                 <p class="assertive" ng-show="login.$error.email">Please enter a valid email address</p>
 
             </label>
             <label name="password" class="text-left">
                 <div>PASSWORD</div>
-                <input placeholder="Enter your password" type="password" ng-model="user.password" required>
+                <input placeholder="Enter your password" type="password" ng-model="$parent.user.password" required>
             </label>
         </div>
     </div>
 
     <div class="w80">
-        <div
-                ui-sref="dapa.form"
+        <button
+                type="submit"
+
                 class="button button-assertive button-block"
                 ng-disabled="login.$invalid">
             Continue
-        </div>
+        </button>
         <a ui-sref="dapa.recover" class="button button-dark button-clear w100">
             Forgot your password?
         </a>

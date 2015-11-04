@@ -6,7 +6,7 @@ angular.module('app.services', [])
 		};
 		return ui;
 	}])
-.service('Api', ['$ionicHistory', '$http', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', function($ionicHistory, $http, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase){
+.service('Api', ['$ionicHistory', '$http', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', '$state', function($ionicHistory, $http, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase, $state){
 		var baseUrl = 'http://api.dapa.dev:3000';
 		var api = {};
 
@@ -15,12 +15,8 @@ angular.module('app.services', [])
 		var fbRef = new fb(dapaRef);
 
 		var api = {
-			fbTest: function (data) {
-				var fbObject = $firebaseObject(fbRef);
-				fbObject.$loaded().then(function () {
-					fbObject['test'] = data;
-					fbObject.$save();
-				})
+			go: function (state) {
+				$state.go(state);
 			},
 			register: function (user) {
 
@@ -85,7 +81,7 @@ angular.module('app.services', [])
 					email: user.email,
 					password: user.password
 				}).then(function (authData) {
-						api.setUserData();
+					api.setUserData();
 				}).catch(function(error) {
 					console.error("Authentication failed:", error);
 				});
