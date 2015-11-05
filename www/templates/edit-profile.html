@@ -7,13 +7,15 @@
             </button>
         </div>
         <div class="text-right">
+            <span ng-hide="newPassword === confirmPassword && newEmail === confirmEmail" class="button button-clear assertive">
+                    Please confirm changes below.
+                </span>
             <button
                     class="button button-clear button-assertive"
+                    ng-hide="newPassword !== confirmPassword || newEmail !== confirmEmail"
                     ng-disabled="newPassword !== confirmPassword || newEmail !== confirmEmail"
                     type="submit">
-                <span ng-show="newPassword !== confirmPassword || newEmail !== confirmEmail" class="assertive">
-                    Please confirm emails and/or passwords match
-                </span> Done
+                Done
             </button>
         </div>
     </div>
@@ -47,6 +49,6 @@
         </div>
     </div>
     <div class="w80">
-        <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a></div>
+        <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.userData = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a></div>
 
 </form>

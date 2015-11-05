@@ -53,7 +53,7 @@ label {
 
 .w90 {width:90%!important; min-width:90%!important;}
 .w80 {width:80%!important; min-width:80%!important;}
-.w100 {width: 100vm !important; width:100%!important; min-width:100%!important;}
+.w100 {width: 100vw !important; width:100%!important; min-width:100%!important;}
 .float-left {float:left}
 
 
@@ -182,5 +182,21 @@ ui-view.ng-leave-active {
     -webkit-transform:translate3d(100px, 0, 0);
     -moz-transform:translate3d(100px, 0, 0);
     transform:translate3d(100px, 0, 0);
+}
+
+.ng-hide-add {
+    transition: all linear 0.3s;
+}
+.ng-hide-remove {
+    transition: all linear 0.5s;
+}
+
+.ng-hide {
+    line-height: 0;
+    opacity: 0;
+    height:0;
+    width:0;
+    position: absolute;
+    right:9999px;
 }
 
