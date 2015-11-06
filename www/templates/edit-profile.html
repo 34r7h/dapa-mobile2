@@ -25,25 +25,32 @@
             <div>
                 <label>
                     <div>NEW EMAIL ADDRESS</div>
-                    <input placeholder="Type your new email here" type="email" ng-model="newEmail">
+                    <input name="newEmail" placeholder="Type your new email here" ng-maxlength="2" type="email" ng-model="newEmail">
+                 <!--
+                    <ng-messages for="profile.newEmail.$error" multiple>
+                        <div ng-repeat="(key, error) in profile.newEmail.$error">
+                            <ng-message when="{{key}}">Double-check your {{key}}</ng-message>
+                        </div>
+                    </ng-messages>
+                -->
                 </label>
                 <label>
                     <div>CONFIRM</div>
-                    <input placeholder="Confirm your email address" type="email" ng-model="confirmEmail">
+                    <input name="confirmEmail" placeholder="Confirm your email address" type="email" ng-model="confirmEmail">
                     <p class="assertive" ng-show="confirmEmail.length > 0 && confirmEmail !== newEmail">Email addresses do not match.</p>
                 </label>
                 <label>
                     <div>OLD PASSWORD</div>
-                    <input placeholder="Enter your old password" type="text" ng-model="oldPassword">
+                    <input name="oldPassword" placeholder="Enter your old password" type="text" ng-model="oldPassword">
                     <p class="assertive" ng-show="oldPassword.length > 0 && oldPassword !== dapa.api.userData.password">Old password is not correct</p>
                 </label>
                 <label>
                     <div>NEW PASSWORD</div>
-                    <input placeholder="Enter your new password" type="password" ng-model="newPassword" ng-disabled="oldPassword !== dapa.api.userData.password">
+                    <input name="newPassword" placeholder="Enter your new password" type="password" ng-model="newPassword" ng-disabled="oldPassword !== dapa.api.userData.password">
                 </label>
                 <label>
                     <div>CONFIRM</div>
-                    <input ng-disabled="!newPassword" placeholder="Confirm your new password" type="password" ng-model="confirmPassword">
+                    <input name="confirmPassword" ng-disabled="!newPassword" placeholder="Confirm your new password" type="password" ng-model="confirmPassword">
                     <p class="assertive" ng-show="confirmPassword.length > 0 && confirmPassword !== newPassword">Passwords do not match.</p>
                 </label>
         </div>

@@ -40,10 +40,42 @@ input[type="text"], input[type="password"], input[type="email"] {
     padding:2px;
 }
 input[readonly] {background:rgba(0,0,0,0);}
+
 label {
     color: gray;
     font-weight: 700;
     width:100% !important;}
+
+
+
+.button.button-assertive {
+    border-color: rgba(112, 17, 43, 1);
+    background-color: rgba(112, 17, 43, 1);
+    color: #fff;
+}
+
+.button.button-assertive.button-clear {
+    color: rgba(112, 17, 43, 1);
+}
+
+button {
+    border-radius: 5px !important;
+    font-weight:700;
+}
+
+button:active.primary , button:focus.primary   {
+    background-color: rgba(100, 14, 39, 1) !important;
+    border-color: rgba(112, 17, 43, 1) !important;
+
+}
+
+button:disabled {
+    opacity:1!important;
+    background-color: rgba(153, 152, 151, .99)!important;
+    border-color: rgba(153, 152, 151, 1)!important;
+}
+
+/* Utility Classes */
 
 .center-container {
     height: 100vh!important;
@@ -126,16 +158,6 @@ label {
     -webkit-align-items: center;
 }
 
-.button.button-assertive {
-    border-color: rgba(112, 17, 43, 1);
-    background-color: rgba(112, 17, 43, 1);
-    color: #fff;
-}
-
-.button.button-assertive.button-clear {
-    color: rgba(112, 17, 43, 1);
-}
-
 
 /* Motion */
 
@@ -195,8 +217,55 @@ ui-view.ng-leave-active {
     line-height: 0;
     opacity: 0;
     height:0;
-    width:0;
     position: absolute;
     right:9999px;
+}
+ng-message.ng-enter, ui-view.ng-leave {
+    position: absolute;
+    left: 0;
+    right: 0;
+    -webkit-transition:all .5s ease-in-out;
+    -moz-transition:all .5s ease-in-out;
+    -o-transition:all .5s ease-in-out;
+    transition:all .5s ease-in-out;
+}
+ng-message {
+    transition:1s linear all;
+}
+ng-message.ng-active {
+// messages are visible
+}
+ng-message.ng-inactive {
+// messages are hidden
+}
+
+ng-message {
+    transition:1s linear all;
+}
+
+ng-message.ng-enter {
+    opacity: 0;
+    -webkit-transform:scale3d(0.5, 0.5, 0.5);
+    -moz-transform:scale3d(0.5, 0.5, 0.5);
+    transform:scale3d(0.5, 0.5, 0.5);
+}
+ng-message.ng-enter.ng-enter-active {
+    opacity: 1;
+    -webkit-transform:scale3d(1, 1, 1);
+    -moz-transform:scale3d(1, 1, 1);
+    transform:scale3d(1, 1, 1);
+}
+
+ng-message.ng-leave {
+    opacity: 1;
+    -webkit-transform:translate3d(0, 0, 0);
+    -moz-transform:translate3d(0, 0, 0);
+    transform:translate3d(0, 0, 0);
+}
+ng-message.ng-leave.ng-leave-active {
+    opacity: 0;
+    -webkit-transform:translate3d(100px, 0, 0);
+    -moz-transform:translate3d(100px, 0, 0);
+    transform:translate3d(100px, 0, 0);
 }
 
