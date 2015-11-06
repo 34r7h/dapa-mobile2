@@ -1,13 +1,13 @@
 <form name="profile" class="flex-column center-container">
     <div class="flex-row between w100">
         <div class="float-left text-left float">
-            <button ui-sref="dapa.form"
+            <button ng-click="dapa.ui.back = true; dapa.api.go('dapa.form');"
                     class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
                 Back
             </button>
         </div>
         <div class="text-right">
-            <button ui-sref="dapa.editProfile"
+            <button ng-click="dapa.ui.back = false; dapa.api.go('dapa.editProfile');"
                     class="button button-clear button-assertive"
             >Edit
             </button>
@@ -31,6 +31,6 @@
 
     </div>
     <div class="w80">
-            <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a>
+            <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.logout(); dapa.ui.back = true; dapa.api.go('dapa.welcome');">Log out</a>
     </div>
 </form>

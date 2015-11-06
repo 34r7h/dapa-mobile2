@@ -1,19 +1,15 @@
 <form name="profile" novalidate class="css-form flex-column center-container" ng-submit="dapa.api.userData.password = newPassword || dapa.api.userData.password; dapa.api.userData.email = newEmail || dapa.api.userData.email; dapa.api.updateUser(dapa.api.userData); showChange = true;">
     <div class="flex-row between w100">
         <div class="text-left float-left">
-            <button type="button" ui-sref="dapa.form"
+            <button type="button" ng-click="dapa.ui.back = true; dapa.api.go('dapa.profile'); "
                     class="button button-assertive button-clear button-icon icon ion-ios-arrow-back">
                 Back
             </button>
         </div>
         <div class="text-right">
-            <span ng-hide="newPassword === confirmPassword && newEmail === confirmEmail" class="button button-clear assertive">
-                    Please confirm changes below.
-                </span>
             <button
-                    class="button button-clear button-assertive"
-                    ng-hide="newPassword !== confirmPassword || newEmail !== confirmEmail"
-                    ng-disabled="newPassword !== confirmPassword || newEmail !== confirmEmail"
+                    class="button button-clear button-assertive back"
+                    ng-disabled="profile.$invalid || profile.$pristine || newPassword !== confirmPassword || newEmail !== confirmEmail || confirmPassword.length + confirmEmail.length < 1"
                     type="submit">
                 Done
             </button>
@@ -25,7 +21,7 @@
             <div>
                 <label>
                     <div>NEW EMAIL ADDRESS</div>
-                    <input name="new-email" placeholder="Type your new email here" ng-maxlength="2" type="email" ng-model="newEmail">
+                    <input name="new-email" placeholder="Type your new email here" type="email" ng-model="newEmail">
                     <p class="assertive" ng-show="profile['new-email'].$error.email">Please enter a valid email address</p>
                 </label>
                 <label>
@@ -35,7 +31,7 @@
                 </label>
                 <label>
                     <div>OLD PASSWORD</div>
-                    <input name="oldPassword" placeholder="Enter your old password" type="text" ng-model="oldPassword">
+                    <input name="old-password" placeholder="Enter your old password" type="password" ng-model="oldPassword">
                     <p class="assertive" ng-show="oldPassword.length > 0 && oldPassword !== dapa.api.userData.password">Old password is not correct</p>
                 </label>
                 <label>
@@ -44,13 +40,13 @@
                 </label>
                 <label>
                     <div>CONFIRM</div>
-                    <input name="confirmPassword" ng-disabled="!newPassword" placeholder="Confirm your new password" type="password" ng-model="confirmPassword">
+                    <input name="confirm-password" ng-disabled="!newPassword" placeholder="Confirm your new password" type="password" ng-model="confirmPassword">
                     <p class="assertive" ng-show="confirmPassword.length > 0 && confirmPassword !== newPassword">Passwords do not match.</p>
                 </label>
         </div>
     </div>
     <div class="w80">
-        <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.userData = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a>
+        <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.userData = {}; dapa.api.logout()" ng-click="dapa.ui.back = false; dapa.api.go('dapa.welcome');">Log out</a>
     </div>
 </form>
 <div ng-show="showChange" class="modal-dark w100 h100">
@@ -61,7 +57,7 @@
                 <br>
                 <div>Please check your email to confirm the changes</div>
                 <br>
-                <button type="button" class="button button-assertive primary w80" ui-sref="dapa.profile">
+                <button type="button" class="button button-assertive primary w80" ng-click="dapa.ui.back = false;  dapa.api.go('dapa.profile');">
                     Got it!
                 </button>
             </div>

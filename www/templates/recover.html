@@ -1,5 +1,5 @@
 <form name="recover" class="flex-column center-container" ng-submit="dapa.api.recover(recoverEmail); showConfirmation = true; ">
-    <button type="button" ui-sref="dapa.login" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
+    <button type="button" ng-click="dapa.ui.back = true; dapa.api.go('dapa.login'); " class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
         Back
     </button>
 
@@ -32,7 +32,7 @@
         </div>
         <div class="col flex-column end h-center text-center">
             <div class="w80">
-                <button type="button" class="button button-assertive button-block primary" ui-sref="dapa.login">
+                <button type="button" class="button button-assertive button-block primary" ng-click="dapa.ui.back = true; dapa.api.go('dapa.login'); " >
                     Got it!
                 </button>
                 </div>

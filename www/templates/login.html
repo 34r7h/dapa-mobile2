@@ -1,7 +1,7 @@
-<form name="login" class="flex-column center-container" ng-submit="dapa.api.login(user);dapa.api.go('dapa.form');">
+<form name="login" class="flex-column center-container" ng-submit="dapa.ui.back = false; dapa.api.login(user);dapa.api.go('dapa.form');">
     <!--TODO add error message if comes email/pass callback error-->
 
-    <button type="button" ui-sref="dapa.welcome" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
+    <button type="button" ng-click="dapa.ui.back = true; dapa.api.go('dapa.welcome');" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
         Back
     </button>
 
@@ -28,7 +28,7 @@
                 ng-disabled="login.$invalid">
             Continue
         </button>
-        <a ui-sref="dapa.recover" class="button button-dark button-clear w100">
+        <a ng-click="dapa.ui.back = false; dapa.api.go('dapa.recover');" class="button button-dark button-clear w100">
             Forgot your password?
         </a>
     </div>

@@ -57,8 +57,11 @@ label {
 .button.button-assertive.button-clear {
     color: rgba(112, 17, 43, 1);
 }
+.button.button-assertive.button-clear:disabled {
+    color: rgba(153, 152, 151, 1)!important;
+}
 
-button {
+button, .button {
     border-radius: 5px !important;
     font-weight:700;
 }
@@ -69,7 +72,7 @@ button:active.primary , button:focus.primary   {
 
 }
 
-button:disabled {
+button:disabled.primary {
     opacity:1!important;
     background-color: rgba(153, 152, 151, .99)!important;
     border-color: rgba(153, 152, 151, 1)!important;
@@ -188,7 +191,7 @@ to prevent collapsing during animation*/
     height: 100%;
 }
 
-ui-view.ng-enter {
+ui-view .ng-enter {
     position: absolute;
     left: 0;
     right: 0;
@@ -197,7 +200,7 @@ ui-view.ng-enter {
     -o-transition:all .5s ease-in-out;
     transition:all .5s ease-in-out;
 }
-ui-view.ng-leave {
+ui-view .ng-leave {
     position: absolute;
     left: 0;
     right: 0;
@@ -207,39 +210,66 @@ ui-view.ng-leave {
     transition:all .5s ease-in-out;
 }
 
-ui-view.ng-enter {
-    opacity: 1;
+ui-view .ng-enter {
+    opacity: 0;
     -webkit-transform:translateX(100%);
     -moz-transform:translateX(100%);
     transform:translateX(100%);
 }
 
-ui-view.ng-enter-active {
+ui-view .ng-enter-active {
     opacity: 1;
     -webkit-transform:translateX(0px);
     -moz-transform:translateX(0px);
     transform:translateX(0px);
 }
 
-ui-view.ng-leave {
+ui-view .ng-leave {
     opacity: 1;
     -webkit-transform:translate3d(0, 0, 0);
     -moz-transform:translate3d(0, 0, 0);
     transform:translate3d(0, 0, 0);
 }
 
-ui-view.ng-leave-active {
+ui-view .ng-leave-active {
     opacity: 1;
     -webkit-transform:translateX(-100%);
     -moz-transform:translateX(-100%);
     transform:translateX(-100%);
 }
 
+.back > ui-view.ng-leave-active {
+    opacity: 1;
+    -webkit-transform:translateX(100%);
+    -moz-transform:translateX(100%);
+    transform:translateX(100%);
+}
+
+.back > ui-view .ng-leave {
+    opacity: 1;
+    -webkit-transform:translate3d(0, 0, 0);
+    -moz-transform:translate3d(0, 0, 0);
+    transform:translate3d(0, 0, 0);
+}
+
+.back > ui-view.ng-enter-active {
+    opacity: 1;
+    -webkit-transform:translateX(100%);
+    -moz-transform:translateX(100%);
+    transform:translateX(100%);
+}
+.back > ui-view.ng-enter {
+    opacity: 1;
+    -webkit-transform:translateX(100%);
+    -moz-transform:translateX(100%);
+    transform:translateX(100%);
+}
+
 .ng-hide-add {
-    transition: all linear 0.2s;
+    transition: all linear 0.3s;
 }
 .ng-hide-remove {
-    transition: all linear 0.2s;
+    transition: all linear 0.3s;
 }
 
 .ng-hide {

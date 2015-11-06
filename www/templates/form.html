@@ -1,6 +1,6 @@
 <form name="Form">
     <div ng-style="{display:'flex', justifyContent:'space-between', width:'100%'}">
-        <button ui-sref="dapa.profile" class="button button-assertive button-clear button-icon icon ion-ios-person-outline"></button>
+        <button ng-click="dapa.ui.back = true; dapa.api.go('dapa.profile');" class="button button-assertive button-clear button-icon icon ion-ios-person-outline"></button>
         <!-- TODO insert save method-->
         <button ng-click="ui.editForm = true" class="button button-clear button-assertive">Edit</button>
     </div>
