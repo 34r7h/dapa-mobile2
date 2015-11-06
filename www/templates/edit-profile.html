@@ -1,4 +1,4 @@
-<form name="profile" novalidate class="css-form flex-column center-container" ng-submit="dapa.api.userData.password = newPassword || dapa.api.userData.password; dapa.api.userData.email = newEmail || dapa.api.userData.email; dapa.api.updateUser(dapa.api.userData); dapa.api.go('dapa.profile');">
+<form name="profile" novalidate class="css-form flex-column center-container" ng-submit="dapa.api.userData.password = newPassword || dapa.api.userData.password; dapa.api.userData.email = newEmail || dapa.api.userData.email; dapa.api.updateUser(dapa.api.userData); showChange = true;">
     <div class="flex-row between w100">
         <div class="text-left float-left">
             <button type="button" ui-sref="dapa.form"
@@ -25,19 +25,13 @@
             <div>
                 <label>
                     <div>NEW EMAIL ADDRESS</div>
-                    <input name="newEmail" placeholder="Type your new email here" ng-maxlength="2" type="email" ng-model="newEmail">
-                 <!--
-                    <ng-messages for="profile.newEmail.$error" multiple>
-                        <div ng-repeat="(key, error) in profile.newEmail.$error">
-                            <ng-message when="{{key}}">Double-check your {{key}}</ng-message>
-                        </div>
-                    </ng-messages>
-                -->
+                    <input name="new-email" placeholder="Type your new email here" ng-maxlength="2" type="email" ng-model="newEmail">
+                    <p class="assertive" ng-show="profile['new-email'].$error.email">Please enter a valid email address</p>
                 </label>
                 <label>
                     <div>CONFIRM</div>
-                    <input name="confirmEmail" placeholder="Confirm your email address" type="email" ng-model="confirmEmail">
-                    <p class="assertive" ng-show="confirmEmail.length > 0 && confirmEmail !== newEmail">Email addresses do not match.</p>
+                    <input name="confirm-email" placeholder="Confirm your email address" type="email" ng-model="confirmEmail">
+                    <p class="assertive" ng-show="(confirmEmail.length > 0) && (confirmEmail !== newEmail)">Email addresses do not match.</p>
                 </label>
                 <label>
                     <div>OLD PASSWORD</div>
@@ -56,6 +50,21 @@
         </div>
     </div>
     <div class="w80">
-        <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.userData = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a></div>
-
+        <a class="button button-light button-block" ng-click="dapa.user = {}; dapa.api.userData = {}; dapa.api.logout()" ui-sref="dapa.welcome">Log out</a>
+    </div>
 </form>
+<div ng-show="showChange" class="modal-dark w100 h100">
+    <div class="flex-column center-container center">
+        <div class="flex-column welcome text-center h-center w80 h50 modal center">
+            <div class="w60">
+                <h3>Your info has been changed!</h3>
+                <br>
+                <div>Please check your email to confirm the changes</div>
+                <br>
+                <button type="button" class="button button-assertive primary w80" ui-sref="dapa.profile">
+                    Got it!
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

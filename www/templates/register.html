@@ -8,17 +8,9 @@
     <div class="w90">
         <h4 class="text-center">Create an account</h4>
         <br>
-        <label name="first-name">
-            <div>FIRST NAME</div>
-            <input placeholder="" type="text" ng-model="user.first_name" required>
-        </label>
-        <label name="last-name">
-            <div>LAST NAME</div>
-            <input placeholder="" type="text" ng-model="user.last_name" required>
-        </label>
         <label name="email">
             <div>EMAIL</div>
-            <input placeholder="" type="email" ng-model="user.email" required>
+            <input placeholder="Your email address" type="email" ng-model="user.email" required>
             <p class="assertive" ng-show="register.$error.email">Please enter a valid email address</p>
         </label>
         <label name="password">
