@@ -1,4 +1,12 @@
 {
   "name": "Dapa",
-  "app_id": "6f3cf515"
+  "app_id": "6f3cf515",
+  "gulpStartupTasks": [
+    "sass",
+    "watch"
+  ],
+  "watchPatterns": [
+    "www/**/*",
+    "!www/lib/**/*"
+  ]
 }

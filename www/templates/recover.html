@@ -16,26 +16,25 @@
         </div>
     </div>
     <div class="w80">
-        <button type="submit" class="button button-dark button-block primary" ng-disabled="recover.$invalid">
+        <button type="submit" class="button button-dark button-block" ng-disabled="recover.$invalid">
             Recover Password
         </button>
     </div>
 </form>
-<div ng-show="showConfirmation" class="modal-light w100 h100">
-    <div class="flex-column center-container">
-        <div class="flex-column end welcome col text-center h-center">
-            <div class="col flex-column end w80">
+
+
+<div ng-show="showConfirmation" class="modal-dark w100 h100">
+    <div class="flex-column center-container center">
+        <div class="flex-column welcome text-center h-center w80 h50 modal center">
+            <div class="w60">
                 <h3>Almost there!</h3>
                 <br>
                 <div>Check your inbox! We just sent you an email. If you don't find anything, be sure to also check your spam folder</div>
-            </div>
-        </div>
-        <div class="col flex-column end h-center text-center">
-            <div class="w80">
+                <br>
                 <button type="button" class="button button-assertive button-block primary" ng-click="dapa.ui.back = true; dapa.api.go('dapa.login'); " >
                     Got it!
                 </button>
-                </div>
+            </div>
         </div>
     </div>
 </div>
