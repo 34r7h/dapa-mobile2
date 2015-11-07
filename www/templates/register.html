@@ -56,7 +56,6 @@
                 <br>
                 <div ng-show="dapa.ui.error">
                     <p>Email {{dapa.ui.error.email[0]}}. Please use a different email or <a class="dark" ui-sref="dapa.login">login</a>.</p>
-                    <p><a ui-sref="dapa.recover" class="dark">Forget your password?</a></p>
                 </div>
                 <div ng-show="dapa.ui.success">Please check your email to confirm your account.</div>
                 <br>
@@ -64,7 +63,7 @@
                     Got it!
                 </button>
                 <button ng-show="dapa.ui.error" type="button" class="button button-assertive primary w80" ng-click="dapa.ui.error = null; showRegistration = false; ">
-                    Change email
+                    Ok, got it!
                 </button>
             </div>
         </div>
