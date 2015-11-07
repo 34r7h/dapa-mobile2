@@ -6,139 +6,108 @@ angular.module('app.services', [])
 		};
 		return ui;
 	}])
-.service('Api', ['$ionicHistory', '$http', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', '$state', function($ionicHistory, $http, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase, $state){
-		var baseUrl = 'http://api.dapa.dev:3000';
-		var api = {};
+.service('Api', ['$ionicHistory', '$http', '$state', '$window', 'Ui', function($ionicHistory, $http, $state, $window, Ui){
+		var localStorage = $window.localStorage;
+		console.log($window.localStorage);
 
-		var fb = Firebase;
-		var dapaRef = 'https://irthos.firebaseio.com/dapa';
-		var fbRef = new fb(dapaRef);
+	var baseUrl = 'http://api.dapa.dev:3000';
 
 		var api = {
 			go: function (state) {
 				$state.go(state);
 			},
 			register: function (user) {
-
-				/*
-				*
-				  *  Mock User Creation using Firebase
-				*
-				* */
-
-				var fbAuth = $firebaseAuth(fbRef);
-				fbAuth.$createUser({
-					email: user.email,
-					password: user.password
-				}).then(function() {
-					return fbAuth.$authWithPassword({
-						email: user.email,
-						password: user.password
-					});
-				}).then(function(authData) {
-					var fbObject = $firebaseObject(fbRef.child('users'));
-					fbObject.$loaded().then(function () {
-						fbObject[authData.uid] = user;
-						fbObject.$save().then(function () {
-							api.setUserData();
-
-						});
-					})
-
-				}).catch(function(error) {
-					console.error("Error: ", error);
-				});
-				/*
-				*
-					*  End Mock DB
-				*
-				* */
-
-
 				console.log('Registering', user);
 				$http.post(baseUrl + '/users', {
-					headers:{
-
-					},
 					user: user
 				}).success(function (data) {
+					api.userData = data;
+					api.auth = data;
+					localStorage.setItem('data', JSON.stringify(data));
+					Ui.success = true;
 					console.log('success',data);
 				}).error(function (data) {
-					console.error('error', data)
+					Ui.error = data.errors;
+					console.error('error', data);
 				});
 			},
 			login: function (user) {
 
-
-				/*
-				*
-					*  Mock login using Firebase
-				*
-				* */
-
-				var fbAuth = $firebaseAuth(fbRef);
-				fbAuth.$authWithPassword({
-					email: user.email,
-					password: user.password
-				}).then(function (authData) {
-					api.setUserData();
-				}).catch(function(error) {
-					console.error("Authentication failed:", error);
-				});
-
-				/*
-				*
-					*  End Mock login using Firebase
-				*
-				* */
-
 				console.log('logging in', user);
 				$http.post(baseUrl + '/sessions', {
-					headers:{
-
-					},
 					session: user
 				}).success(function (data) {
+					Ui.back = false;
+					console.log('success', data);
+					api.userData = data;
+					api.auth = data;
+					localStorage.setItem('data', JSON.stringify(data));
+					api.go('dapa.form');
+				}).error(function (data) {
+					Ui.error = 'Wrong email / password combination';
+					console.error('error', Ui.error)
+				});
+			},
+			logout: function () {
+
+				// DELETE /sessions/:id - Logout
+
+				console.log('logging out', api.auth.email);
+				$http.delete(baseUrl + '/sessions/' + api.auth.auth_token, {
+					headers:{
+						Authorization: api.auth.auth_token
+					}
+				}).success(function (data) {
+					localStorage.clear();
+					api.userData = null;
+					api.auth = null;
 					console.log('success',data);
 				}).error(function (data) {
 					console.error('error', data)
 				});
-			},
-			logout: function () {
+
+				/*/!*
+				*
+				* Mock logout via firebase
+				*
+				* *!/
 				var fbAuth = $firebaseAuth(fbRef);
 				api.userData = null;
 				api.auth = null;
-				fbAuth.$unauth()
+				fbAuth.$unauth();
+				/!*
+				*
+				*
+				*
+				* *!/*/
 			},
 			updateUser: function (user) {
-				/*
-				*
-				*  Mock update via Firebase
-				*
-				* */
 
-				var fbObject = $firebaseObject(fbRef.child('users'));
-				fbObject.$loaded().then(function (data) {
-					data[api.auth.uid] = user;
-					data.$save();
+				console.log('updating', user);
+				$http.put(baseUrl + '/users/' + api.auth.auth_token, {
+					headers:{
+						Authorization: api.auth.auth_token
+
+					},
+					user: user
+				}).success(function (data) {
+					console.log('success', data);
+					api.userData = data;
+					api.auth = data;
+					localStorage.setItem('data', JSON.stringify(data));
+				}).error(function (data) {
+					console.error('error', data)
 				});
 
-				/*
-				*
-			 	*  End mock update via Firebase
-				*
-				*
-				* */
 			},
 			setUserData: function () {
-				var fbAuth = $firebaseAuth(fbRef);
-				var auth = fbAuth.$getAuth();
-				if(auth){
-					api.userData = $firebaseObject(fbRef.child('users/'+ auth.uid));
-					api.auth = auth;
-				} else {
-					console.log('not logged in');
-				}
+
+				localStorage.data ? (
+						api.auth = JSON.parse(localStorage.data),
+						api.userData = JSON.parse(localStorage.data)
+				) : api.go('dapa.welcome');
+
+
 			}
 		};
 		api.setUserData();

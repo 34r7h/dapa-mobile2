@@ -1,4 +1,4 @@
-<form name="register" novalidate class="css-form flex-column center-container" ng-submit="dapa.api.register(user); dapa.user = user; dapa.api.userData = user;dapa.ui.back = false; dapa.api.go('dapa.form');">
+<form name="register" novalidate class="css-form flex-column center-container" ng-submit="dapa.api.register(user); showRegistration = true">
     <button type="button"
             ng-click="dapa.ui.back = true; dapa.api.go('dapa.welcome');"
             class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
@@ -15,7 +15,15 @@
         </label>
         <label name="password">
             <div>PASSWORD</div>
-            <input placeholder="Enter your password" type="password" ng-model="user.password" required>
+            <input
+                    placeholder="Enter your password"
+                    type="password"
+                    ng-model="user.password"
+                    minlength="8"
+                    required>
+            <p class="assertive" ng-show="!user.password">
+                8 characters minimum, please
+            </p>
         </label>
         <label name="confirm-password">
             <div>CONFIRM PASSWORD</div>
@@ -31,9 +39,35 @@
 
         <button
                 type="submit"
-                class="w80 button button-assertive button-block primary"
+                class="w80 button button-assertive primary"
                 ng-disabled="user.password !== user.password_confirmation || register.$invalid">
             Continue
         </button>
     </div>
 </form>
+
+
+<div ng-show="showRegistration" class="modal-dark w100 h100">
+    <div class="flex-column center-container center">
+        <div class="flex-column welcome text-center h-center w80 h50 modal center">
+            <div class="w60">
+                <h3 ng-show="dapa.ui.success">Your almost registered!</h3>
+                <h3 ng-show="dapa.ui.error" >Uh oh!</h3>
+                <br>
+                <div ng-show="dapa.ui.error">
+                    <p>Email {{dapa.ui.error.email[0]}}</p>
+                    <p>Please use a different email or <a ui-sref="dapa.login">login</a>.</p>
+                    <p><a ui-sref="dapa.recover">Forget your password?</a></p>
+                </div>
+                <div ng-show="dapa.ui.success">Please check your email to confirm your account.</div>
+                <br>
+                <button ng-show="dapa.ui.success" type="button" class="button button-assertive primary w80" ng-click="dapa.user = user; dapa.api.userData = user; dapa.ui.success = null; dapa.ui.back = false; dapa.api.go('dapa.form');">
+                    Got it!
+                </button>
+                <button ng-show="dapa.ui.error" type="button" class="button button-assertive primary w80" ng-click="dapa.ui.error = null; showRegistration = false; ">
+                    Change email
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
