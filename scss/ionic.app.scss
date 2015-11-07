@@ -63,7 +63,9 @@ input[type="text"], input[type="password"], input[type="email"] {
   margin: 0 0 1em 0;
   padding:2px;
 }
-input[readonly] {background:rgba(0,0,0,0);}
+input[readonly], input:disabled {background:rgba(0,0,0,0);}
+
+
 
 label {
   color: gray;

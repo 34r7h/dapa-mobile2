@@ -1,4 +1,4 @@
-<form name="login" class="flex-column center-container" ng-submit="dapa.ui.back = false; dapa.api.login(user);dapa.api.go('dapa.form');">
+<form name="login" class="flex-column center-container" ng-submit=" dapa.api.login(user);">
     <!--TODO add error message if comes email/pass callback error-->
 
     <button type="button" ng-click="dapa.ui.back = true; dapa.api.go('dapa.welcome');" class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
@@ -12,7 +12,9 @@
             <label name="email" class="text-left">
                 <div>EMAIL</div>
                 <input placeholder="Enter your email address" type="email" ng-model="user.email" required>
-                <p class="assertive" ng-show="login.$error.email">Please enter a valid email address</p>
+                <p class="assertive" ng-show="login.$error.email">
+                    Please enter a valid email address
+                </p>
 
             </label>
             <label name="password" class="text-left">
@@ -24,7 +26,7 @@
     <div class="w80">
         <button
                 type="submit"
-                class="button button-assertive button-block primary"
+                class="button button-assertive primary w100"
                 ng-disabled="login.$invalid">
             Continue
         </button>
@@ -33,3 +35,22 @@
         </a>
     </div>
 </form>
+
+<div ng-show="dapa.ui.error" class="modal-dark w100 h100">
+    <div class="flex-column center-container center">
+        <div class="flex-column welcome text-center h-center w80 h50 modal center">
+            <div class="w60">
+                <h3 ng-show="" >Uh oh!</h3>
+                <br>
+                <div>
+                    <p>{{dapa.ui.error}}</p>
+                    <p><a class="dark" ui-sref="dapa.recover">Forget your password?</a></p>
+                </div>
+                <br>
+                <button ng-show="dapa.ui.error" type="button" class="button button-assertive primary w80" ng-click="dapa.ui.error = null;">
+                    Try again
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
