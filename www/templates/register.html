@@ -22,7 +22,7 @@
                     minlength="8"
                     required>
             <p class="assertive" ng-show="!user.password">
-                8 characters minimum, please
+                Password must contain minimum 8 characters in length also uppercase and lowercase letters, numbers and symbols.
             </p>
         </label>
         <label name="confirm-password">
@@ -55,9 +55,14 @@
                 <h3 ng-show="dapa.ui.error" >Uh oh!</h3>
                 <br>
                 <div ng-show="dapa.ui.error">
-                    <p>Email {{dapa.ui.error.email[0]}}. Please use a different email or <a class="dark" ui-sref="dapa.login">login</a>.</p>
+                    <ul>
+                        <li ng-repeat="error in dapa.ui.error">
+                            {{error}}
+                        </li>
+                    </ul>
+                    <p>Please fix the errors or or <a class="dark" ui-sref="dapa.login">login</a>.</p>
                 </div>
-                <div ng-show="dapa.ui.success">Please check your email to confirm your account.</div>
+                <div ng-show="dapa.ui.success">Check your inbox! We just sent you an email. If you don't find anything, be sure to also check your spam folder.</div>
                 <br>
                 <button ng-show="dapa.ui.success" type="button" class="button button-assertive primary w80" ng-click="dapa.user = user; dapa.api.userData = user; dapa.ui.success = null; dapa.ui.back = false; dapa.api.go('dapa.form');">
                     Got it!

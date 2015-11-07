@@ -44,7 +44,7 @@ angular.module('app.services', [])
 					localStorage.setItem('data', JSON.stringify(data));
 					api.go('dapa.form');
 				}).error(function (data) {
-					Ui.error = 'Wrong email / password combination';
+					Ui.error = data.errors;
 					console.error('error', Ui.error)
 				});
 			},
