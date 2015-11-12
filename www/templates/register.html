@@ -10,16 +10,18 @@
         <br>
         <label name="email">
             <div>EMAIL</div>
-            <input placeholder="Your email address" type="email" ng-model="user.email" required>
+            <input name="email" placeholder="Your email address" type="email" ng-model="user.email" required>
             <p class="assertive" ng-show="register.$error.email">Please enter a valid email address</p>
         </label>
         <label name="password">
             <div>PASSWORD</div>
             <input
+                    name="password"
                     placeholder="Enter your password"
                     type="password"
                     ng-model="user.password"
                     minlength="8"
+                    ng-pattern="/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[$@$!%*?&])[A-Za-z\d$@$!%*?&]{8,}/"
                     required>
             <p class="assertive" ng-show="!user.password">
                 Password must contain minimum 8 characters in length also uppercase and lowercase letters, numbers and symbols.
@@ -27,7 +29,7 @@
         </label>
         <label name="confirm-password">
             <div>CONFIRM PASSWORD</div>
-            <input placeholder="Confirm your password" type="password" ng-model="user.password_confirmation" required>
+            <input name="password_confirmation" placeholder="Confirm your password" type="password" ng-model="user.password_confirmation" required>
             <p class="assertive" ng-show="user.password_confirmation.length > 0 && user.password_confirmation !== user.password">Passwords do not match.</p>
         </label>
     </div>
@@ -64,7 +66,7 @@
                 </div>
                 <div ng-show="dapa.ui.success">Check your inbox! We just sent you an email. If you don't find anything, be sure to also check your spam folder.</div>
                 <br>
-                <button ng-show="dapa.ui.success" type="button" class="button button-assertive primary w80" ng-click="dapa.user = user; dapa.api.userData = user; dapa.ui.success = null; dapa.ui.back = false; dapa.api.go('dapa.form');">
+                <button ng-show="dapa.ui.success" type="button" class="button button-assertive primary w80" ng-click="dapa.user = user; dapa.api.userData = user; dapa.ui.success = null; dapa.ui.back = false; dapa.api.go('dapa.login');">
                     Got it!
                 </button>
                 <button ng-show="dapa.ui.error" type="button" class="button button-assertive primary w80" ng-click="dapa.ui.error = null; showRegistration = false; ">

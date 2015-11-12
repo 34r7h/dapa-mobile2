@@ -1,12 +1,37 @@
-<form name="Form">
-    <div ng-style="{display:'flex', justifyContent:'space-between', width:'100%'}">
-        <button ng-click="dapa.ui.back = true; dapa.api.go('dapa.profile');" class="button button-assertive button-clear button-icon icon ion-ios-person-outline"></button>
-        <!-- TODO insert save method-->
-        <button ng-click="ui.editForm = true" class="button button-clear button-assertive">Edit</button>
+<form name="{{dapa.api.currentForm.$id}}" class="flex-column h100 between text-center h-center" ng-init="dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress]">
+    <div class="flex-row between w100">
+        <div class="text-left float-left">
+            <button
+                    ng-click="dapa.ui.back = true; dapa.form.progress = dapa.api.currentForm.progress-1; dapa.form.progress === 0 ? dapa.api.go('dapa.forms') : dapa.ui.formState = dapa.ui.formModel[dapa.form.progress];"
+                    class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
+                 Back
+            </button>
+        </div>
+        <div class="text-right">
+            <button ng-click="ui.editForm = true" class="button button-clear button-assertive">Close</button>
+        </div>
     </div>
-    <ion-content class="has-header has-footer" padding="true">
-        <form style="" class="list">
-            <h3 style="">Future form</h3>
-        </form>
-    </ion-content>
+    <h4>{{dapa.ui.formState.name}} {{dapa.form}}</h4>
+    <div class="text-left w90" >
+        <div ng-repeat="question in dapa.ui.formState.questions">
+            <label><div>{{question.name | uppercase}}</div>
+            <div ng-if="question.type === 'input'" >
+                <input type="{{question.subtype}}" ng-model="dapa.form[question.id]" placeholder="{{question.placeholder}}">
+            </div>
+            </label>
+        </div>
+    </div>
+
+<div class="w80">
+    <b>FORM COMPLETENESS: {{dapa.ui.formState.complete}}%</b>
+    <div><progress max="100" value="{{dapa.ui.formState.complete}}"> </progress></div>
+    <button
+            class="w100 button button-assertive primary"
+            ng-click="
+                dapa.api.updateForm(dapa.api.currentForm.$id, dapa.apidapa.form);
+                dapa.ui.progress = dapa.api.currentForm.progress+1;
+                dapa.ui.formState = dapa.ui.formModel[dapa.ui.progress]">
+        Continue
+    </button>
+</div>
 </form>
