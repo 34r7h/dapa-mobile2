@@ -3,8 +3,8 @@ angular.module('app.services', [])
 		var ui = {
 			dHeight: $window.innerHeight,
 			dWidth: $window.innerWidth,
-			formModel: {
-				1: {
+			formModel: [
+				{
 					name: 'About you',
 					complete: 15,
 					questions: [
@@ -12,14 +12,14 @@ angular.module('app.services', [])
 							id: 'first_name',
 							name: 'the applicant\'s first name',
 							type: 'input',
-							placeholder: '',
+							placeholder: 'Your first name',
 							subtype: 'text'
 						},
 						{
 							id: 'last_name',
 							name: 'the applicant\'s last name',
 							type: 'input',
-							placeholder: '',
+							placeholder: 'Your last name',
 							subtype: 'text'
 						},
 						{
@@ -39,7 +39,7 @@ angular.module('app.services', [])
 
 					]
 				},
-				2: {
+				{
 					name: 'About you',
 					complete: 30,
 					questions: [
@@ -73,33 +73,33 @@ angular.module('app.services', [])
 						}
 					]
 				},
-				3: {
+				{
 					name: 'About you',
 					complete: 45
 				},
-				4: {
+				{
 					name: 'Marital status',
 					complete: 60
 				},
-				5: {
+				{
 					name: 'Information about your children',
 					complete: 75
 				},
-				6: {
+				{
 					name: 'Immigration status',
 					complete: 90
 				},
-				7: {
+				{
 					name: 'Immigration status',
 					complete: 100
 				}
-			},
+			]
 		};
 		return ui;
 	}])
 	.service('Api', ['$ionicHistory', '$http', '$state', '$window', 'Ui', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', function ($ionicHistory, $http, $state, $window, Ui, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase) {
-		var localStorage = $window.localStorage;
 
+		var localStorage = $window.localStorage;
 		console.log($window.localStorage);
 
 		var baseUrl = 'http://api.dapa.dev';
@@ -110,6 +110,22 @@ angular.module('app.services', [])
 		var fbRef = new fb(dapaRef);
 
 		var api = {
+			normalize: function (format, data) {
+				if (format === 'obj') {
+					var newObj = {};
+					angular.forEach(data, function (val, key) {
+						newObj[key] = val;
+					});
+					return newObj;
+				} else {
+					var newArr = [];
+					angular.forEach(data, function (val) {
+						newArr.push(val);
+					});
+					return newArr;
+				}
+
+			},
 			go: function (state) {
 				$state.go(state);
 			},
@@ -153,6 +169,8 @@ angular.module('app.services', [])
 
 			},
 			login: function (user) {
+				console.log('logging in');
+				api.go('dapa.forms');
 
 				// Firebase Mock API
 				var fbAuth = $firebaseAuth(fbRef);
@@ -240,14 +258,23 @@ angular.module('app.services', [])
 			},
 			setUserData: function () {
 
-				localStorage.data ? (
-					api.auth = JSON.parse(localStorage.data),
-						api.userData = JSON.parse(localStorage.data)
-				) : api.go('dapa.welcome');
+				localStorage.data ?
+						(api.auth = JSON.parse(localStorage.data),
+					api.userData = JSON.parse(localStorage.data))
+						: api.go('dapa.welcome');
 
 				localStorage.forms ?
 					(api.forms = JSON.parse(localStorage.forms), api.currentForm = api.forms[api.forms.length - 1])
 					: null;
+
+				if (api.userData) {
+					var fbArray = $firebaseArray(fbRef.child('users/' + api.userData.uid + '/forms'));
+					fbArray.$loaded().then(function (forms) {
+						api.forms = forms;
+						localStorage.setItem('forms', JSON.stringify(forms));
+					});
+				}
+
 
 				console.log(api);
 
@@ -267,20 +294,28 @@ angular.module('app.services', [])
 							api.forms.push(form);
 						});
 						api.currentForm = api.forms[api.forms.length - 1];
+						localStorage.setItem('forms', JSON.stringify(api.normalize('arr', api.forms)));
 
-						localStorage.setItem('forms', JSON.stringify(api.forms));
+						localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', api.currentForm)));
 
 					});
 				});
 			},
 			updateForm: function (id, form) {
+				console.log('form update in progress', arguments);
 
 				// Firebase Mock API
 				var fbObject = $firebaseObject(fbRef.child('users/'+ api.userData.uid +'/forms'));
-				fbObject.$loaded().then(function (data) {
-					data[id] = form;
-					data.$save();
-					localStorage.setItem('data', JSON.stringify(api.currentForm));
+				fbObject.$loaded(function(data){
+					console.log(data);
+					angular.forEach(form, function (question, key) {
+						data[id][key] = question;
+					});
+					fbObject.$save();
+					localStorage.setItem('forms', JSON.stringify(api.normalize('arr', fbObject)));
+					localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', data[id])));
+				}, function (error) {
+					console.log(error);
 				});
 			},
 			removeForm: function (index) {

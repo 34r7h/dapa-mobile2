@@ -1,37 +1,62 @@
-<form name="{{dapa.api.currentForm.$id}}" class="flex-column h100 between text-center h-center" ng-init="dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress]">
+<form name="{{dapa.api.currentForm.$id}}" class="flex-column h100 between text-center h-center" ng-init="
+dapa.api.currentForm.progress > 0 ? null : dapa.api.currentForm.progress = 1; dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress-1];
+
+">
     <div class="flex-row between w100">
         <div class="text-left float-left">
             <button
-                    ng-click="dapa.ui.back = true; dapa.form.progress = dapa.api.currentForm.progress-1; dapa.form.progress === 0 ? dapa.api.go('dapa.forms') : dapa.ui.formState = dapa.ui.formModel[dapa.form.progress];"
+                    ng-click="dapa.ui.back = true;
+                    dapa.api.currentForm.progress == 1 ? dapa.api.go('dapa.forms') : dapa.api.currentForm.progress = dapa.api.currentForm.progress-1;
+                    dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress-1]; dapa.api.updateForm(dapa.api.currentForm.$id, dapa.api.currentForm);"
                     class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
                  Back
             </button>
         </div>
         <div class="text-right">
-            <button ng-click="ui.editForm = true" class="button button-clear button-assertive">Close</button>
+            <button ng-click="cancelForm = true" class="button button-clear button-assertive">Close</button>
         </div>
     </div>
-    <h4>{{dapa.ui.formState.name}} {{dapa.form}}</h4>
+    <h3>{{dapa.ui.formState.name}}</h3>
     <div class="text-left w90" >
         <div ng-repeat="question in dapa.ui.formState.questions">
             <label><div>{{question.name | uppercase}}</div>
             <div ng-if="question.type === 'input'" >
-                <input type="{{question.subtype}}" ng-model="dapa.form[question.id]" placeholder="{{question.placeholder}}">
+                <input type="{{question.subtype}}" ng-model="dapa.api.currentForm[question.id]" placeholder="{{question.placeholder}}">
             </div>
             </label>
         </div>
     </div>
 
-<div class="w80">
+<div class="w80 text-left">
     <b>FORM COMPLETENESS: {{dapa.ui.formState.complete}}%</b>
-    <div><progress max="100" value="{{dapa.ui.formState.complete}}"> </progress></div>
+    <div><progress max="100" value="{{dapa.ui.formState.complete}}"></progress></div>
     <button
             class="w100 button button-assertive primary"
             ng-click="
-                dapa.api.updateForm(dapa.api.currentForm.$id, dapa.apidapa.form);
-                dapa.ui.progress = dapa.api.currentForm.progress+1;
-                dapa.ui.formState = dapa.ui.formModel[dapa.ui.progress]">
+                dapa.api.currentForm.progress >= dapa.ui.formModel.length ? dapa.api.go('dapa.forms') : dapa.api.currentForm.progress = dapa.api.currentForm.progress+1;
+                dapa.api.updateForm(dapa.api.currentForm.$id, dapa.api.currentForm);
+                dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress - 1]">
         Continue
     </button>
 </div>
 </form>
+
+
+<div ng-show="cancelForm" class="modal-dark w100 h100">
+    <div class="flex-column center-container center">
+        <div class="flex-column welcome text-center h-center w80 h50 modal center">
+            <div class="w60">
+                <h3>Want to save your progress</h3>
+                <br>
+                <div>Save your form now and you'll be able to get back to it later from where you left off. If you choose not to save it, your progress will be lost.</div>
+                <br>
+                <button type="button" class="button button-light primary" ng-click="dapa.ui.back = true; dapa.api.go('dapa.forms'); " >
+                    Discard
+                </button>
+                <button type="button" class="button button-assertive primary" ng-click="dapa.ui.back = true; dapa.api.updateForm(dapa.api.currentForm.$id, dapa.api.currentForm); dapa.api.go('dapa.forms'); " >
+                        Save
+                    </button>
+            </div>
+        </div>
+    </div>
+</div>

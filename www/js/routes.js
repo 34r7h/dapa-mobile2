@@ -34,6 +34,11 @@ angular.module('app.routes', [])
       templateUrl: 'templates/forms.html'
     })
 
+    .state('dapa.editForms', {
+      url: '/edit-forms',
+      templateUrl: 'templates/edit-forms.html'
+    })
+
     .state('dapa.form', {
       url: '/form',
       templateUrl: 'templates/form.html'
