@@ -155,7 +155,8 @@ button:disabled.primary {
 .float-left {float:left}
 
 .h50 {height:50%!important; min-height:50%!important;}
-.h50 {height:60%!important; min-height:60%!important;}
+.h60 {height:60%!important; min-height:60%!important;
+  height:60vh!important; min-height:60vh!important;}
 .h80 {height:80%!important; min-height:80%!important;}
 .h90 {height:90%!important; min-height:90%!important;}
 .h100 {height: 100vh !important; height:100%!important; min-height:100vh!important;min-height:100%!important;}
@@ -391,17 +392,14 @@ ui-view .ng-leave-active {
   transform:translateX(100%);
 }
 
-.ng-hide-add  {
+.ng-hide-add, h3 .ng-hide-add  {
   transition: all linear 0.3s;
 }
-.ng-hide-remove {
+.ng-hide-remove, h3 .ng-hide-remove {
   transition: all linear 0.3s;
 }
 
-.ng-hide{
-  line-height: 0;
+.ng-hide, h3 .ng-hide {
   opacity: 0;
-  height:0;
   position: relative;
-
 }
