@@ -1,4 +1,4 @@
-<div class="flex-column h100 between text-center h-center" ng-init="dapa.api.currentForm = {}">
+<div class="flex-column center-container text-center" ng-init="dapa.api.currentForm = {}">
     <div class="flex-row between w100">
         <div class="text-left float-left">
             <button ng-click="dapa.ui.back = true; dapa.api.go('dapa.profile');"
@@ -13,11 +13,11 @@
         </div>
     </div>
 
-    <h3 class="text-center">Forms</h3>
+    <div class="w90" ng-show="dapa.api.forms"><h3 class="text-center">Forms</h3>
 
-    <div class="w90 scroll bottom-shadow">
+    <div class="scroll bottom-shadow">
         <div class="text-left card padding" ng-repeat="form in dapa.api.forms">
-            <a ng-click="dapa.api.currentForm = form; dapa.ui.back = false; dapa.api.go('dapa.form')">
+            <a ng-click="dapa.api.currentForm = form; dapa.ui.back = false; dapa.api.go('dapa.newForm', form.$id, form.progress)">
                 <br>
                 <b class="x2">{{form.first_name +' '+ form.last_name}}</b>
 
@@ -38,9 +38,10 @@
             </a>
         </div>
     </div>
-
+</div>
     <div class="w50">
         <br>
+
         <button class="button button-light button-icon icon"
                 ng-click="dapa.api.createForm(); dapa.ui.back = false; dapa.api.go('dapa.form')">
             <div class="icon-stack">

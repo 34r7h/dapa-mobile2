@@ -9082,7 +9082,7 @@ a.button {
   src: url("../fonts/Fabrica.ttf.eot?#iefix") format("embedded-opentype"), url("../fonts/Fabrica.ttf.woff") format("woff"), url("../fonts/Fabrica.ttf.svg#svgFontName") format("svg");
   /* Legacy iOS */ }
 
-* {
+*, h1, h2, h3, h4, h5 {
   font-family: 'fabrica' !important;
   -webkit-font-smoothing: subpixel-antialiased !important;
   color: #979695; }
@@ -9223,8 +9223,9 @@ button:disabled.primary {
   min-height: 90% !important; }
 
 .h100 {
-  height: 100vw !important;
+  height: 100vh !important;
   height: 100% !important;
+  min-height: 100vh !important;
   min-height: 100% !important; }
 
 .icon-stack {
@@ -9249,6 +9250,17 @@ button:disabled.primary {
     font-size: 2em;
     bottom: 28px;
     font-weight: bold; }
+  .icon-stack a {
+    position: relative !important;
+    left: 0 !important;
+    font-weight: bold; }
+  .icon-stack a:first-child {
+    font-size: 1.5em;
+    bottom: 6px;
+    font-weight: bold; }
+  .icon-stack a:nth-child(2) {
+    position: relative;
+    bottom: 38px; }
 
 progress[value] {
   background-color: #e4e4e4;
@@ -9273,6 +9285,11 @@ progress[value]::-webkit-progress-value {
   font-size: 2em; }
 
 /* FLEX */
+.flex {
+  flex: 1 1 10px;
+  -webkit-flex: 1 1 10px;
+  margin: 4px; }
+
 .flex1 {
   flex: 0 0 100px;
   -webkit-flex: 0 0 100px; }
@@ -9291,6 +9308,7 @@ progress[value]::-webkit-progress-value {
 
 .flex-column {
   height: 100%;
+  height: 100vh;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -9412,14 +9430,12 @@ ui-view .ng-leave-active {
   -moz-transform: translateX(100%);
   transform: translateX(100%); }
 
-.ng-hide-add {
+.ng-hide-add, h3 .ng-hide-add {
   transition: all linear 0.3s; }
 
-.ng-hide-remove {
+.ng-hide-remove, h3 .ng-hide-remove {
   transition: all linear 0.3s; }
 
-.ng-hide {
-  line-height: 0;
+.ng-hide, h3 .ng-hide {
   opacity: 0;
-  height: 0;
   position: relative; }

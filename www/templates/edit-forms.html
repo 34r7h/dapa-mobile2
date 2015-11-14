@@ -1,4 +1,4 @@
-<div class="flex-column h100 between text-center h-center" ng-init="dapa.api.currentForm = {}">
+<div class="flex-column center-container text-center" ng-init="dapa.api.currentForm = {}">
     <div class="flex-row between w100">
         <div class="text-left float-left">
             <button disabled="true" ng-click="dapa.ui.back = true; dapa.api.go('dapa.profile');"
@@ -12,20 +12,19 @@
             </button>
         </div>
     </div>
-
+<div class="w90">
     <h3 class="text-center">Remove Forms</h3>
 
-    <div class="w90 scroll bottom-shadow">
+    <div class="scroll bottom-shadow">
         <div class="text-left card padding" ng-repeat="form in dapa.api.forms">
-            <a ng-click="dapa.api.currentForm = form; dapa.ui.back = false; dapa.api.go('dapa.form')">
+            <a ng-click="dapa.api.removeForm($index)">
                 <br>
                 <b class="x2">{{form.first_name +' '+ form.last_name}}</b>
                 <div>{{form.timestamp | date: 'MM/dd/yyyy'}}</div>
 
                 <div class="text-right">
 
-                    <button class="button button-light button-icon icon"
-                            ng-click="dapa.api.removeForm($index)">
+                    <button class="button button-light button-icon icon">
                         <div class="icon-stack">
                             <b class="ion-ios7-circle-outline error"></b>
                             <b class="ion-minus error"></b>
@@ -41,16 +40,17 @@
             </a>
         </div>
     </div>
-
+</div>
     <div class="w50">
         <br>
-            <button disabled class="button button-light button-icon icon">
-                <div class="icon-stack">
-                    <i class="ion-ios7-circle-outline"></i>
-                    <i class="ion-plus"></i>
-                </div>
-                <div>Create a new form</div>
-            </button>
+        <button disabled class="button button-light button-icon icon"
+                ng-click="dapa.api.createForm(); dapa.ui.back = false; dapa.api.go('dapa.form')">
+            <div class="icon-stack">
+                <i class="ion-ios7-circle-outline"></i>
+                <i class="ion-plus"></i>
+            </div>
+            <div>Create a new form</div>
+        </button>
 
     </div>
 </div>

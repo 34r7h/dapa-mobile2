@@ -75,7 +75,27 @@ angular.module('app.services', [])
 				},
 				{
 					name: 'About you',
-					complete: 45
+					complete: 45,
+					questions:[
+						{
+							id: 'alive',
+							name: 'alive',
+							type: 'bool',
+							answers: {
+								yes: 'i\'m alive!',
+								no: 'i\'m done for'
+							},
+							placeholder: 'are you alive',
+							subtype: 'radio'
+						},
+						{
+							id: 'dob',
+							name: 'date of birth',
+							type: 'input',
+							placeholder: 'Your date of birthday',
+							subtype: 'date'
+						}
+					]
 				},
 				{
 					name: 'Marital status',
@@ -97,7 +117,7 @@ angular.module('app.services', [])
 		};
 		return ui;
 	}])
-	.service('Api', ['$ionicHistory', '$http', '$state', '$window', 'Ui', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', function ($ionicHistory, $http, $state, $window, Ui, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase) {
+	.service('Api', ['$ionicHistory', '$http', '$state', '$window', 'Ui', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', '$stateParams', function ($ionicHistory, $http, $state, $window, Ui, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase, $stateParams) {
 
 		var localStorage = $window.localStorage;
 		console.log($window.localStorage);
@@ -126,8 +146,11 @@ angular.module('app.services', [])
 				}
 
 			},
-			go: function (state) {
+			go: function (state, formId, section) {
+				console.log(arguments);
+				formId ? $state.go(state, {formId: formId, section: section}):
 				$state.go(state);
+				console.log($stateParams)
 			},
 			register: function (user) {
 
@@ -327,7 +350,26 @@ angular.module('app.services', [])
 					data.$remove(form);
 					api.forms = data;
 				});
+			},
+			navigateForm: function (direction) {
+				direction === 'back' ? (
+					console.log('going going back back to acali cali'),
+					Ui.back = true,
+					api.currentForm.progress == 1 ?
+							api.go('dapa.forms') :
+							(api.go('dapa.newForm', api.currentForm.$id, api.currentForm.progress-1), api.currentForm.progress = api.currentForm.progress-1, Ui.formState = Ui.formModel[api.currentForm.progress-1]
+							)
+				) :
+						(
+								console.log('going going forward forward to acali cali'),
+										Ui.back = false,
+										api.currentForm.progress > Ui.formModel.length ?
+												api.go('dapa.forms') :
+												(api.go('dapa.newForm', api.currentForm.$id, api.currentForm.progress+1), api.currentForm.progress = api.currentForm.progress+1, Ui.formState = Ui.formModel[api.currentForm.progress-1]
+												)
+						);
 
+				api.updateForm(api.currentForm.$id, api.currentForm);
 			}
 		};
 		api.setUserData();

@@ -45,6 +45,9 @@
                 ng-disabled="user.password !== user.password_confirmation || register.$invalid">
             Continue
         </button>
+        <div>
+            <br>
+        </div>
     </div>
 </form>
 
@@ -72,6 +75,7 @@
                 <button ng-show="dapa.ui.error" type="button" class="button button-assertive primary w80" ng-click="dapa.ui.error = null; showRegistration = false; ">
                     Ok, got it!
                 </button>
+
             </div>
         </div>
     </div>

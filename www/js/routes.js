@@ -44,6 +44,13 @@ angular.module('app.routes', [])
       templateUrl: 'templates/form.html'
     })
 
+    .state('dapa.newForm', {
+      url: '/form/:formId?section',
+      templateUrl: 'templates/form.html'
+    })
+
+
+
     .state('dapa.recover', {
       url: '/recover',
       templateUrl: 'templates/recover.html'
