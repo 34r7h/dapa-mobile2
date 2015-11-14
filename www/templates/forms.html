@@ -13,10 +13,12 @@
         </div>
     </div>
 
-    <div class="w90" ng-show="dapa.api.forms"><h3 class="text-center">Forms</h3>
+    <div class="w90" ng-show="dapa.api.forms">
+        <h3 class="text-center">Forms</h3>
 
-    <div class="scroll bottom-shadow">
-        <div ng-click="dapa.api.currentForm = form; dapa.ui.back = false; dapa.api.go('dapa.newForm', form.$id, form.progress)" class="text-left card padding" ng-repeat="form in dapa.api.forms">
+        <div class="h60 scroll bottom-shadow">
+            <div ng-click="dapa.api.currentForm = form; dapa.ui.back = false; dapa.api.go('dapa.newForm', form.$id, form.progress)"
+                 class="text-left card padding" ng-repeat="form in dapa.api.forms">
                 <br>
                 <b class="x2">{{form.first_name +' '+ form.last_name}}</b>
 
@@ -34,9 +36,9 @@
                 <div>
                     <progress max="100" value="{{dapa.ui.formModel[form.progress -1].complete}}"></progress>
                 </div>
+            </div>
         </div>
     </div>
-</div>
     <div class="w50">
         <br>
 

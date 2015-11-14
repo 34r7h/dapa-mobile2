@@ -14,9 +14,13 @@
         </div>
     </div>
 
-    <div class="w90 "><h3 ng-class="{back: dapa.ui.back}">{{dapa.ui.formState.name}}</h3>
+    <div class="w90">
+        <h3 ng-class="{back: dapa.ui.back}">
+            {{dapa.ui.formState.name}}
+        </h3>
+        <br>
 
-        <div ng-class="{back: dapa.ui.back}" class="text-left">
+        <div class="text-left bubble">
             <div
                     ng-repeat="question in dapa.ui.formState.questions"
                     ng-show="(question.condition && dapa.api.currentForm[question.condition].length > 1) || !question.condition">
@@ -24,9 +28,13 @@
                     <div>
                         {{question.name | uppercase}}
                     </div>
-                    <input name="{{question.name}}" ng-maxlength="question.validations.maxLength" type="{{question.subtype}}" ng-model="dapa.api.currentForm[question.id]"
+                    <input name="{{question.name}}" ng-maxlength="question.validations.maxLength"
+                           type="{{question.subtype}}" ng-model="dapa.api.currentForm[question.id]"
                            placeholder="{{question.placeholder}}">
-                    <p class="assertive" ng-show="$parent[dapa.api.currentForm.$id][question.name].$error" ng-repeat="(key, error) in $parent[dapa.api.currentForm.$id][question.name].$error">{{key}}
+
+                    <p class="error"
+                       ng-animate="'animate"
+                       ng-repeat="(key, error) in $parent[dapa.api.currentForm.$id][question.name].$error">{{key}}
                     </p>
                 </label>
 
@@ -79,7 +87,7 @@
                 <br>
 
                 <div class="flex-row around w100">
-                    <button type="button" class="button button-light primary flex"
+                    <button type="button" class="button button-light flex"
                             ng-click="dapa.ui.back = true; dapa.api.go('dapa.forms'); ">
                         Discard
                     </button>
@@ -99,12 +107,15 @@
         <div class="flex-column welcome text-center h-center w80 h50 modal center">
             <div class="w80">
                 <h3>Form submitted</h3>
+
                 <h2>
-                        00000000
+                    00000000
                 </h2>
+
                 <p>{{'your confirmation number' | uppercase}}</p>
                 <hr>
-                <p>Thanks for submitting the form! One of our representatives will be in touch shortly. Check your inbox for a confirmation email, too!</p>
+                <p>Thanks for submitting the form! One of our representatives will be in touch shortly. Check your inbox
+                    for a confirmation email, too!</p>
                 <button type="button" class="button button-assertive button-block primary w100"
                         ng-click="dapa.ui.back = false; dapa.api.go('dapa.forms'); ">
                     Got it!
