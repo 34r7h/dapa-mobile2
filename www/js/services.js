@@ -13,14 +13,18 @@ angular.module('app.services', [])
 							name: 'the applicant\'s first name',
 							type: 'input',
 							placeholder: 'Your first name',
-							subtype: 'text'
+							subtype: 'text',
+							validations: {
+								maxLength: 40
+							}
 						},
 						{
 							id: 'last_name',
 							name: 'the applicant\'s last name',
 							type: 'input',
 							placeholder: 'Your last name',
-							subtype: 'text'
+							subtype: 'text',
+							condition: 'first_name'
 						},
 						{
 							id: 'home_number',
@@ -76,7 +80,7 @@ angular.module('app.services', [])
 				{
 					name: 'About you',
 					complete: 45,
-					questions:[
+					questions: [
 						{
 							id: 'alive',
 							name: 'alive',
@@ -148,8 +152,8 @@ angular.module('app.services', [])
 			},
 			go: function (state, formId, section) {
 				console.log(arguments);
-				formId ? $state.go(state, {formId: formId, section: section}):
-				$state.go(state);
+				formId ? $state.go(state, {formId: formId, section: section}) :
+					$state.go(state);
 				console.log($stateParams)
 			},
 			register: function (user) {
@@ -282,9 +286,9 @@ angular.module('app.services', [])
 			setUserData: function () {
 
 				localStorage.data ?
-						(api.auth = JSON.parse(localStorage.data),
-					api.userData = JSON.parse(localStorage.data))
-						: api.go('dapa.welcome');
+					(api.auth = JSON.parse(localStorage.data),
+						api.userData = JSON.parse(localStorage.data))
+					: api.go('dapa.welcome');
 
 				localStorage.forms ?
 					(api.forms = JSON.parse(localStorage.forms), api.currentForm = api.forms[api.forms.length - 1])
@@ -328,8 +332,8 @@ angular.module('app.services', [])
 				console.log('form update in progress', arguments);
 
 				// Firebase Mock API
-				var fbObject = $firebaseObject(fbRef.child('users/'+ api.userData.uid +'/forms'));
-				fbObject.$loaded(function(data){
+				var fbObject = $firebaseObject(fbRef.child('users/' + api.userData.uid + '/forms'));
+				fbObject.$loaded(function (data) {
 					console.log(data);
 					angular.forEach(form, function (question, key) {
 						data[id][key] = question;
@@ -354,20 +358,20 @@ angular.module('app.services', [])
 			navigateForm: function (direction) {
 				direction === 'back' ? (
 					console.log('going going back back to acali cali'),
-					Ui.back = true,
-					api.currentForm.progress == 1 ?
+						Ui.back = true,
+						api.currentForm.progress == 1 ?
 							api.go('dapa.forms') :
-							(api.go('dapa.newForm', api.currentForm.$id, api.currentForm.progress-1), api.currentForm.progress = api.currentForm.progress-1, Ui.formState = Ui.formModel[api.currentForm.progress-1]
+							(api.go('dapa.newForm', api.currentForm.$id, api.currentForm.progress - 1), api.currentForm.progress = api.currentForm.progress - 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
 							)
 				) :
-						(
-								console.log('going going forward forward to acali cali'),
-										Ui.back = false,
-										api.currentForm.progress > Ui.formModel.length ?
-												api.go('dapa.forms') :
-												(api.go('dapa.newForm', api.currentForm.$id, api.currentForm.progress+1), api.currentForm.progress = api.currentForm.progress+1, Ui.formState = Ui.formModel[api.currentForm.progress-1]
-												)
-						);
+					(
+						console.log('going going forward forward to acali cali'),
+							Ui.back = false,
+							api.currentForm.progress > Ui.formModel.length ?
+								api.go('dapa.forms') :
+								(api.go('dapa.newForm', api.currentForm.$id, api.currentForm.progress + 1), api.currentForm.progress = api.currentForm.progress + 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
+								)
+					);
 
 				api.updateForm(api.currentForm.$id, api.currentForm);
 			}

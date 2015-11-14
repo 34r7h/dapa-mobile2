@@ -17,13 +17,17 @@
     <div class="w90 "><h3 ng-class="{back: dapa.ui.back}">{{dapa.ui.formState.name}}</h3>
 
         <div ng-class="{back: dapa.ui.back}" class="text-left">
-            <div ng-repeat="question in dapa.ui.formState.questions">
+            <div
+                    ng-repeat="question in dapa.ui.formState.questions"
+                    ng-show="(question.condition && dapa.api.currentForm[question.condition].length > 1) || !question.condition">
                 <label ng-show="question.type === 'input'">
                     <div>
                         {{question.name | uppercase}}
                     </div>
-                    <input type="{{question.subtype}}" ng-model="dapa.api.currentForm[question.id]"
+                    <input name="{{question.name}}" ng-maxlength="question.validations.maxLength" type="{{question.subtype}}" ng-model="dapa.api.currentForm[question.id]"
                            placeholder="{{question.placeholder}}">
+                    <p class="assertive" ng-show="$parent[dapa.api.currentForm.$id][question.name].$error" ng-repeat="(key, error) in $parent[dapa.api.currentForm.$id][question.name].$error">{{key}}
+                    </p>
                 </label>
 
                 <div ng-show="question.type === 'bool'">
@@ -39,10 +43,6 @@
                         </div>
                         {{answer}}
                     </h4>
-
-                    <!-- <label ng-repeat="(key, answer) in question.answers" for="{{$parent.question.id}}-{{key}}"><input id="{{$parent.question.id}}-{{key}}" type="{{$parent.question.subtype}}" ng-model="dapa.api.currentForm[question.id]" placeholder="{{$parent.question.placeholder}}" value="{{key}}"> {{answer}}
-                         <br></label>-->
-
                 </div>
             </div>
         </div>
@@ -56,8 +56,8 @@
         </div>
         <button
                 class="w100 button button-assertive primary"
-                ng-click="dapa.ui.formState.complete === 100 ? confirmation = true : dapa.api.navigateForm()">
-            Continue
+                ng-click="dapa.ui.formState.complete === 100 ? submitForm = true : dapa.api.navigateForm()">
+            {{dapa.ui.formState.complete === 100 ? 'Submit' : 'Continue'}}
         </button>
         <div>
             <br>
@@ -93,7 +93,8 @@
     </div>
 </div>
 
-<div ng-show="confirmation" class="modal-dark w100 h100">
+<div ng-show="submitForm" class="modal-dark w100 h100">
+    <!-- TODO catch success callback with confirmation number. set form as complete -->
     <div class="flex-column center-container center">
         <div class="flex-column welcome text-center h-center w80 h50 modal center">
             <div class="w80">

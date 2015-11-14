@@ -9430,12 +9430,14 @@ ui-view .ng-leave-active {
   -moz-transform: translateX(100%);
   transform: translateX(100%); }
 
-.ng-hide-add, h3 .ng-hide-add {
+.ng-hide-add {
   transition: all linear 0.3s; }
 
-.ng-hide-remove, h3 .ng-hide-remove {
+.ng-hide-remove {
   transition: all linear 0.3s; }
 
-.ng-hide, h3 .ng-hide {
+.ng-hide {
+  line-height: 0;
   opacity: 0;
+  height: 0;
   position: relative; }
