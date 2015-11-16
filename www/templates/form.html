@@ -36,7 +36,7 @@
                             ng-model="dapa.api.currentForm[question.id]"
                             placeholder="{{question.placeholder}}">
 
-                    <p class="error"
+                    <p ng-show="question.subtype != 'date'" class="error"
                        ng-animate="'animate"
                        ng-repeat="(key, error) in $parent[dapa.api.currentForm.$id][question.name].$error">{{key}}
                     </p>

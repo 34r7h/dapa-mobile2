@@ -9115,6 +9115,10 @@ input[type="text"], input[type="password"], input[type="email"], input[type="tel
   line-height: 22px;
   color: rgba(161, 160, 159, 0.9); }
 
+input[type="date"] {
+  max-width: 60%;
+  min-width: 60%; }
+
 input[readonly], input:disabled {
   background: transparent; }
 
