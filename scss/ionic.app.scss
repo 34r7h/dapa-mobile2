@@ -63,7 +63,7 @@ html, body {
 
 input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"]  {
   border-bottom: 1px solid gainsboro;
-  width: 100%;
+  max-width: 100%;
   min-width: 100%;
   margin: 0 0 1em 0;
   padding:4px;
@@ -203,10 +203,13 @@ button:disabled.primary {
   }
 }
 
+progress {
+  margin:0;
+  margin-bottom:8px!important;
+}
 progress[value] {
   background-color: rgba(228, 228, 228, 1);
   border-radius: 10px;
-
 }
 progress[value]::-webkit-progress-bar {
   background-color: rgba(228, 228, 228, 1);

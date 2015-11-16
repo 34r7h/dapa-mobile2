@@ -1,4 +1,4 @@
-<form name="{{dapa.api.currentForm.$id}}" class="flex-column between text-center h-center" ng-init="dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress-1];
+<form name="{{dapa.api.currentForm.$id}}" class="flex-column between text-center h-center " ng-init="dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress-1];
 
 ">
     <div class="flex-row between w100">
@@ -14,7 +14,7 @@
         </div>
     </div>
 
-    <div class="w90">
+    <div class="w90 scroll bottom-shadow">
         <h3 ng-class="{back: dapa.ui.back}">
             {{dapa.ui.formState.name}}
         </h3>
@@ -23,25 +23,31 @@
         <div class="text-left bubble">
             <div
                     ng-repeat="question in dapa.ui.formState.questions"
-                    ng-show="(question.condition && dapa.api.currentForm[question.condition].length > 1) || !question.condition">
+                    ng-show="(question.condition && dapa.api.currentForm[question.condition].length > 1 && dapa.api.currentForm[question.condition] !== 'false') || !question.condition">
                 <label ng-show="question.type === 'input'">
                     <div>
                         {{question.name | uppercase}}
                     </div>
-                    <input name="{{question.name}}" ng-maxlength="question.validations.maxLength"
-                           type="{{question.subtype}}" ng-model="dapa.api.currentForm[question.id]"
-                           placeholder="{{question.placeholder}}">
+                    <input
+                            name="{{question.name}}"
+                            ng-maxlength="question.validations.maxLength"
+                            max="{{question.validations.max}}"
+                            type="{{question.subtype}}"
+                            ng-model="dapa.api.currentForm[question.id]"
+                            placeholder="{{question.placeholder}}">
 
                     <p class="error"
                        ng-animate="'animate"
                        ng-repeat="(key, error) in $parent[dapa.api.currentForm.$id][question.name].$error">{{key}}
                     </p>
+                    <br ng-show="!$last" />
                 </label>
 
                 <div ng-show="question.type === 'bool'">
                     <div>
                         <b>{{question.name | uppercase}}</b>
                     </div>
+                    <p>{{question.placeholder}}</p>
                     <h4 ng-click="dapa.api.currentForm[question.id] = key"
                         ng-repeat="(key, answer) in question.answers">
                         <div class="icon-stack float-left">
@@ -51,17 +57,18 @@
                         </div>
                         {{answer}}
                     </h4>
+                    <br ng-show="!$last" />
                 </div>
             </div>
         </div>
     </div>
 
     <div class="w80 text-left">
-        <b>FORM COMPLETENESS: {{dapa.ui.formState.complete}}%</b>
 
-        <div>
-            <progress max="100" value="{{dapa.ui.formState.complete}}"></progress>
-        </div>
+
+        <br/>
+        <b>FORM COMPLETENESS: {{dapa.ui.formState.complete}}%</b>
+        <progress max="100" value="{{dapa.ui.formState.complete}}"></progress>
         <button
                 class="w100 button button-assertive primary"
                 ng-click="dapa.ui.formState.complete === 100 ? submitForm = true : dapa.api.navigateForm()">

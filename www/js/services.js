@@ -4,118 +4,263 @@ angular.module('app.services', [])
 			dHeight: $window.innerHeight,
 			dWidth: $window.innerWidth,
 			formModel: [
+					/*
+					* validations: object of {camelCased html5 errors}
+					* condition: string id of another question that must be true on the scope*/
 				{
 					name: 'About you',
 					complete: 15,
 					questions: [
 						{
-							id: 'first_name',
-							name: 'the applicant\'s first name',
+							id: 'firstName',
+							name: 'First Name',
 							type: 'input',
-							placeholder: 'Your first name',
+							placeholder: 'What is your given name?',
+							subtype: 'text',
+							validations: {
+								maxLength: 60
+							}
+						},
+						{
+							id: 'lastName',
+							name: 'Last Name',
+							type: 'input',
+							placeholder: 'What is your family name?',
+							subtype: 'text',
+							validations: {
+								maxLength: 60
+							}
+						},
+						{
+							id: 'country',
+							name: 'Country of Residence',
+							type: 'input',
+							placeholder: 'The country you currently live in',
 							subtype: 'text',
 							validations: {
 								maxLength: 40
 							}
 						},
 						{
-							id: 'last_name',
-							name: 'the applicant\'s last name',
+							id: 'country',
+							name: 'Country of Residence',
 							type: 'input',
-							placeholder: 'Your last name',
+							placeholder: 'The country you currently live in',
 							subtype: 'text',
-							condition: 'first_name'
+							validations: {
+								maxLength: 40
+							}
 						},
 						{
-							id: 'home_number',
-							name: 'home',
+							id: 'state',
+							name: 'State of Residence',
 							type: 'input',
-							placeholder: 'Your home phone number',
-							subtype: 'tel'
-						},
-						{
-							id: 'mobile_number',
-							name: 'mobile',
-							type: 'input',
-							placeholder: 'Your mobile phone number',
-							subtype: 'tel'
-						}
-
-					]
-				},
-				{
-					name: 'About you',
-					complete: 30,
-					questions: [
-						{
-							id: 'a_number',
-							name: 'a#',
-							type: 'input',
-							placeholder: 'Your A# number',
+							placeholder: 'The state you currently live in',
 							subtype: 'text'
 						},
 						{
-							id: 'ssn',
-							name: 'ssn',
+							id: 'age',
+							name: 'Client/User Age',
 							type: 'input',
-							placeholder: 'Your Social Security number',
-							subtype: 'number'
-						},
-						{
-							id: 'passport',
-							name: 'passport',
-							type: 'input',
-							placeholder: 'Your passport number',
-							subtype: 'number'
-						},
-						{
-							id: 'dob',
-							name: 'date of birth',
-							type: 'input',
-							placeholder: 'Your date of birthday',
-							subtype: 'date'
+							placeholder: 'How old are you?',
+							subtype: 'number',
+							validations: {max:150}
 						}
 					]
 				},
 				{
-					name: 'About you',
-					complete: 45,
+					name: 'Your family',
+					complete: 30,
 					questions: [
 						{
-							id: 'alive',
-							name: 'alive',
+							id: 'married',
+							name: 'Are you married or single',
 							type: 'bool',
 							answers: {
-								yes: 'i\'m alive!',
-								no: 'i\'m done for'
+								true: 'Married',
+								false: 'Single'
 							},
-							placeholder: 'are you alive',
 							subtype: 'radio'
 						},
 						{
-							id: 'dob',
-							name: 'date of birth',
+							id: 'citizenSpouse',
+							name: 'U.S. Citizen Spouse',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							placeholder: 'Is your spouse a citizen of the U.S.?',
+							subtype: 'radio',
+							condition: 'married'
+						},
+						{
+							id: 'residentSpouse',
+							name: 'Legal Permanent Resident Spouse',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							placeholder: 'Is your spouse a legal permanent resident of the U.S.?',
+							subtype: 'radio',
+							condition: 'married'
+						},
+						{
+							id: 'citizenParent',
+							name: 'U.S. Citizen Parent',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							placeholder: 'Are any of your parents citizens of the U.S.?',
+							subtype: 'radio'
+						},
+						{
+							id: 'citizenChildren',
+							name: 'U.S. Citizen Children',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							placeholder: 'Are any of your children citizens of the U.S.?',
+							subtype: 'radio'
+						},
+						{
+							id: 'oldestChild',
+							name: 'Oldest U.S. Citizen Child’s Age',
 							type: 'input',
-							placeholder: 'Your date of birthday',
-							subtype: 'date'
+							placeholder: 'Age of your oldest child U.S. citizen?',
+							subtype: 'number',
+							validations:{max:150},
+							condition: 'citizenChildren'
+						},
+						{
+							id: 'residentParent',
+							name: 'Legal Permanent Resident Parent',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							placeholder: 'Are any of your parents legal permanent residents of the U.S.?',
+							subtype: 'radio'
+						},
+						{
+							id: 'citizenSibling',
+							name: 'Do you have a living U.S. Citizen brother or sister?',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							subtype: 'radio'
 						}
 					]
 				},
 				{
-					name: 'Marital status',
-					complete: 60
+					name: 'Legal history',
+					complete: 60,
+					questions: [
+						{
+							id: 'drugHistory',
+							name: 'Have you been convicted of a drug related crime in any country?',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							placeholder: '(not including possession of less than 30 grams of marijuana)',
+							subtype: 'radio'
+						},
+						{
+							id: 'murderHistory',
+							name: 'Have you been convicted of murder?',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							subtype: 'radio'
+						},
+						{
+							id: 'fraudHistory',
+							name: 'Have you ever falsely claimed to be a U.S. citizen?',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							subtype: 'radio'
+						}
+					]
 				},
 				{
-					name: 'Information about your children',
-					complete: 75
-				},
-				{
-					name: 'Immigration status',
-					complete: 90
-				},
-				{
-					name: 'Immigration status',
-					complete: 100
+					name: 'Border History',
+					complete: 100,
+					questions: [
+						{
+							id: 'deportationHistory',
+							name: 'Have you been deported or removed from the USA? ',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							subtype: 'radio'
+						},
+						{
+							id: 'deportationNumber',
+							name: 'How many times have you been deported or removed from the USA?',
+							type: 'input',
+							placeholder: '1',
+							subtype: 'number',
+							condition:'deportationHistory',
+							validations:{
+								max:100
+							}
+						},
+						{
+							id: 'lastDeportation',
+							name: 'What is the date of your last deportation?',
+							type: 'input',
+							subtype: 'date',
+							placeholder:'When were you last deported?',
+							condition:'deportationHistory'
+						},
+						{
+							id: 'borderAssist',
+							name: 'Have you ever assisted any person, other than your child who was under the age of 18 years old, to illegally cross the border into the USA?',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							subtype: 'radio'
+						},
+						{
+							id: 'illegalCrossing',
+							name: 'How many different times have you illegally crossed the border into the USA?',
+							type: 'input',
+							placeholder: '1',
+							subtype: 'number',
+							validations:{
+								max:100
+							}
+						},
+						{
+							id: 'lastEntry',
+							name: 'Was your last entry into the USA with a Visa or other documented authorization?',
+							type: 'bool',
+							answers: {
+								true: 'Yes',
+								false: 'No'
+							},
+							subtype: 'radio'
+						}
+					]
 				}
 			]
 		};
@@ -124,7 +269,6 @@ angular.module('app.services', [])
 	.service('Api', ['$ionicHistory', '$http', '$state', '$window', 'Ui', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', '$stateParams', function ($ionicHistory, $http, $state, $window, Ui, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase, $stateParams) {
 
 		var localStorage = $window.localStorage;
-		console.log($window.localStorage);
 
 		var baseUrl = 'http://api.dapa.dev';
 
