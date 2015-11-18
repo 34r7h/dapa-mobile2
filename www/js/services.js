@@ -4,9 +4,9 @@ angular.module('app.services', [])
 			dHeight: $window.innerHeight,
 			dWidth: $window.innerWidth,
 			formModel: [
-					/*
-					* validations: object of {camelCased html5 errors}
-					* condition: string id of another question that must be true on the scope*/
+				/*
+				 * validations: object of {camelCased html5 errors}
+				 * condition: string id of another question that must be true on the scope*/
 				{
 					name: 'About you',
 					complete: 15,
@@ -64,7 +64,7 @@ angular.module('app.services', [])
 							type: 'input',
 							placeholder: 'How old are you?',
 							subtype: 'number',
-							validations: {max:150}
+							validations: {max: 150}
 						}
 					]
 				},
@@ -134,7 +134,7 @@ angular.module('app.services', [])
 							type: 'input',
 							placeholder: 'Age of your oldest child U.S. citizen?',
 							subtype: 'number',
-							validations:{max:150},
+							validations: {max: 150},
 							condition: 'citizenChildren'
 						},
 						{
@@ -217,9 +217,9 @@ angular.module('app.services', [])
 							type: 'input',
 							placeholder: '1',
 							subtype: 'number',
-							condition:'deportationHistory',
-							validations:{
-								max:100
+							condition: 'deportationHistory',
+							validations: {
+								max: 100
 							}
 						},
 						{
@@ -227,8 +227,8 @@ angular.module('app.services', [])
 							name: 'What is the date of your last deportation?',
 							type: 'input',
 							subtype: 'date',
-							placeholder:'When were you last deported?',
-							condition:'deportationHistory'
+							placeholder: 'When were you last deported?',
+							condition: 'deportationHistory'
 						},
 						{
 							id: 'borderAssist',
@@ -246,8 +246,8 @@ angular.module('app.services', [])
 							type: 'input',
 							placeholder: '1',
 							subtype: 'number',
-							validations:{
-								max:100
+							validations: {
+								max: 100
 							}
 						},
 						{
@@ -269,13 +269,15 @@ angular.module('app.services', [])
 	.service('Api', ['$ionicHistory', '$http', '$state', '$window', 'Ui', '$firebaseObject', '$firebaseArray', '$firebaseAuth', 'Firebase', '$stateParams', function ($ionicHistory, $http, $state, $window, Ui, $firebaseObject, $firebaseArray, $firebaseAuth, Firebase, $stateParams) {
 
 		var localStorage = $window.localStorage;
-
-		var baseUrl = 'http://api.dapa.dev';
+		console.log(localStorage);
+		var baseUrl = 'http://api.bealeandassociates.com';
+/*
 
 		// Firebase Mock API init
 		var fb = Firebase;
 		var dapaRef = 'https://irthos.firebaseio.com/dapa';
 		var fbRef = new fb(dapaRef);
+*/
 
 		var api = {
 			normalize: function (format, data) {
@@ -302,192 +304,184 @@ angular.module('app.services', [])
 			},
 			register: function (user) {
 
-				// Firebase Mock API
-				var fbAuth = $firebaseAuth(fbRef);
-				fbAuth.$createUser({
-					email: user.email,
-					password: user.password
-				}).then(function () {
-					return fbAuth.$authWithPassword({
-						email: user.email,
-						password: user.password
-					});
-				}).then(function (authData) {
-					var fbObject = $firebaseObject(fbRef.child('users'));
-					fbObject.$loaded().then(function () {
-						fbObject[authData.uid] = user;
-						fbObject.$save().then(function () {
-							api.setUserData();
-							Ui.success = true;
-						});
-					})
-				}).catch(function (error) {
-					console.error("Error: ", error);
-				});
+				/*
+				 // Firebase Mock API
+				 var fbAuth = $firebaseAuth(fbRef);
+				 fbAuth.$createUser({
+				 email: user.email,
+				 password: user.password
+				 }).then(function () {
+				 return fbAuth.$authWithPassword({
+				 email: user.email,
+				 password: user.password
+				 });
+				 }).then(function (authData) {
+				 var fbObject = $firebaseObject(fbRef.child('users'));
+				 fbObject.$loaded().then(function () {
+				 fbObject[authData.uid] = user;
+				 fbObject.$save().then(function () {
+				 api.setUserData();
+				 Ui.success = true;
+				 });
+				 })
+				 }).catch(function (error) {
+				 console.error("Error: ", error);
+				 });
+				 */
 
 				// Main API
-				/*$http.post(baseUrl + '/users', {
-				 user: user
-				 }).success(function (data) {
-				 api.userData = data;
-				 api.auth = data;
-				 localStorage.setItem('data', JSON.stringify(data));
-				 Ui.success = true;
-				 }).error(function (data) {
-				 Ui.error = data.errors;
-				 console.error('error', data);
-				 });*/
+				$http.post(baseUrl + '/users', {
+					user: user
+				}).success(function (data) {
+					// api.userData = data;
+					// localStorage.setItem('data', JSON.stringify(data));
+					Ui.success = true;
+				}).error(function (data) {
+					Ui.error = data.errors;
+					console.error('error', data);
+				});
 
 			},
 			login: function (user) {
 				console.log('logging in');
 				api.go('dapa.forms');
+				/*
 
-				// Firebase Mock API
-				var fbAuth = $firebaseAuth(fbRef);
-				fbAuth.$authWithPassword({
-					email: user.email,
-					password: user.password
-				}).then(function (authData) {
-					Ui.back = false;
-					api.userData = authData;
-					api.auth = authData;
-					localStorage.setItem('data', JSON.stringify(authData));
-					var fbArray = $firebaseArray(fbRef.child('users/' + api.userData.uid + '/forms'));
-					fbArray.$loaded().then(function (forms) {
-						api.forms = forms;
-						localStorage.setItem('forms', JSON.stringify(forms));
-					});
-				}).catch(function (error) {
-					console.error("Authentication failed:", error);
-				});
+				 // Firebase Mock API
+				 var fbAuth = $firebaseAuth(fbRef);
+				 fbAuth.$authWithPassword({
+				 email: user.email,
+				 password: user.password
+				 }).then(function (authData) {
+				 Ui.back = false;
+				 api.userData = authData;
+				 localStorage.setItem('data', JSON.stringify(authData));
+				 var fbArray = $firebaseArray(fbRef.child('users/' + api.userData.uid + '/forms'));
+				 fbArray.$loaded().then(function (forms) {
+				 api.forms = forms;
+				 localStorage.setItem('forms', JSON.stringify(forms));
+				 });
+				 }).catch(function (error) {
+				 console.error("Authentication failed:", error);
+				 });
+				 */
 
 				// Main API
-				/*$http.post(baseUrl + '/sessions', {
-				 session: user
-				 }).success(function (data) {
-				 Ui.back = false;
-				 api.userData = data;
-				 api.auth = data;
-				 localStorage.setItem('data', JSON.stringify(data));
-				 api.go('dapa.form');
-				 }).error(function (data) {
-				 Ui.error = data.errors;
-				 console.error('error', Ui.error)
-				 });*/
+				$http.post(baseUrl + '/sessions', {
+					session: user
+				}).success(function (data) {
+					console.log(data);
+					Ui.back = false;
+					api.userData = data;
+					localStorage.setItem('data', JSON.stringify(data));
+					api.go('dapa.forms');
+				}).error(function (data) {
+					Ui.error = data.errors;
+					console.error('error', Ui.error)
+				});
 
 			},
 			logout: function () {
+				/*
 
-				// Firebase Mock API
-				var fbAuth = $firebaseAuth(fbRef);
-				localStorage.clear();
-				api.userData = null;
-				api.auth = null;
-				fbAuth.$unauth();
-
-				// Main API
-				/*$http.delete(baseUrl + '/sessions/' + api.auth.auth_token, {
-				 headers:{
-				 Authorization: api.auth.auth_token
-				 }
-				 }).success(function (data) {
+				 // Firebase Mock API
+				 var fbAuth = $firebaseAuth(fbRef);
 				 localStorage.clear();
 				 api.userData = null;
-				 api.auth = null;
-				 }).error(function (data) {
-				 console.error('error', data)
-				 });*/
+				 fbAuth.$unauth();
+				 */
+				localStorage.clear();
+				// Main API
+				$http.delete(baseUrl + '/sessions/' + api.userData.auth_token, {
+					headers: {
+						Authorization: api.userData.auth_token
+					}
+				}).success(function () {
+					api.userData = {};
+				}).error(function (data) {
+					console.error('error', data)
+				});
 			},
 			updateUser: function (user) {
+				/*
 
-				// Firebase Mock API
-				var fbObject = $firebaseObject(fbRef.child('users'));
-				fbObject.$loaded().then(function (data) {
-					api.userData = data;
-					api.auth = data;
-					localStorage.setItem('data', JSON.stringify(data));
-					data[api.userData.uid] = user;
-					data.$save();
-				});
+				 // Firebase Mock API
+				 var fbObject = $firebaseObject(fbRef.child('users'));
+				 fbObject.$loaded().then(function (data) {
+				 api.userData = data;
+				 localStorage.setItem('data', JSON.stringify(data));
+				 data[api.userData.uid] = user;
+				 data.$save();
+				 });
+				 */
 
 				// Main API
-				/*$http.put(baseUrl + '/users/' + api.auth.auth_token, {
-				 headers:{
-				 Authorization: api.auth.auth_token
-
-				 },
-				 user: user
-				 }).success(function (data) {
-				 api.userData = data;
-				 api.auth = data;
-				 localStorage.setItem('data', JSON.stringify(data));
-				 }).error(function (data) {
-				 console.error('error', data)
-				 });*/
-
-			},
-			setUserData: function () {
-
-				localStorage.data ?
-					(api.auth = JSON.parse(localStorage.data),
-						api.userData = JSON.parse(localStorage.data))
-					: api.go('dapa.welcome');
-
-				localStorage.forms ?
-					(api.forms = JSON.parse(localStorage.forms), api.currentForm = api.forms[api.forms.length - 1])
-					: null;
-
-				if (api.userData) {
-					var fbArray = $firebaseArray(fbRef.child('users/' + api.userData.uid + '/forms'));
-					fbArray.$loaded().then(function (forms) {
-						api.forms = forms;
-						localStorage.setItem('forms', JSON.stringify(forms));
-					});
-				}
-
-
-				console.log(api);
+				$http.put(baseUrl + '/users/' + api.userData.id, {
+					headers: {
+						'Content-Type': 'application/json',
+						Authorization: api.userData.auth_token
+					},
+					user: user
+				}).success(function (data) {
+					api.userData = data;
+					localStorage.setItem('data', JSON.stringify(data));
+				}).error(function (data) {
+					console.error('error', data)
+				});
 
 			},
 			createForm: function () {
 				// Mock Firebase API
-				console.log('saving new form', api.userData.uid);
-				var fbArray = $firebaseArray(fbRef.child('users/' + api.userData.uid + '/forms'));
-				fbArray.$loaded().then(function (forms) {
-					console.log('yo selfs', forms);
-					forms.$add({
-						timestamp: Date.now(),
-						progress: 1
-					}).then(function (newForm) {
-						api.forms = [];
-						angular.forEach(forms, function (form) {
-							api.forms.push(form);
-						});
-						api.currentForm = api.forms[api.forms.length - 1];
-						localStorage.setItem('forms', JSON.stringify(api.normalize('arr', api.forms)));
-
-						localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', api.currentForm)));
-
-					});
+				console.log('saving new form', api.userData.id);
+				api.forms.push({
+					timestamp: Date.now(),
+					progress: 1
 				});
+				api.currentForm = api.forms[api.forms.length - 1];
+				localStorage.setItem('forms', JSON.stringify(api.normalize('arr', api.forms)));
+
+				localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', api.currentForm)));
+
+				/*var fbArray = $firebaseArray(fbRef.child('users/' + api.userData.id + '/forms'));*/
+				/*fbArray.$loaded().then(function (forms) {
+				 console.log('yo selfs', forms);
+				 forms.$add({
+				 timestamp: Date.now(),
+				 progress: 1
+				 }).then(function (newForm) {
+				 api.forms = [];
+				 angular.forEach(forms, function (form) {
+				 api.forms.push(form);
+				 });
+				 api.currentForm = api.forms[api.forms.length - 1];
+				 localStorage.setItem('forms', JSON.stringify(api.normalize('arr', api.forms)));
+
+				 localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', api.currentForm)));
+
+				 });
+				 });*/
 			},
 			updateForm: function (id, form) {
 				console.log('form update in progress', arguments);
+				api.forms[id] = form;
+				api.updateUser(api.userData);
+				localStorage.setItem('forms', JSON.stringify(api.normalize('arr', api.forms)));
+				localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', form)));
 
-				// Firebase Mock API
-				var fbObject = $firebaseObject(fbRef.child('users/' + api.userData.uid + '/forms'));
-				fbObject.$loaded(function (data) {
-					console.log(data);
-					angular.forEach(form, function (question, key) {
-						data[id][key] = question;
-					});
-					fbObject.$save();
-					localStorage.setItem('forms', JSON.stringify(api.normalize('arr', fbObject)));
-					localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', data[id])));
-				}, function (error) {
-					console.log(error);
-				});
+				/*
+				 // Firebase Mock API
+				 var fbObject = $firebaseObject(fbRef.child('users/' + api.userData.uid + '/forms'));
+				 fbObject.$loaded(function (data) {
+				 console.log(data);
+				 angular.forEach(form, function (question, key) {
+				 data[id][key] = question;
+				 });
+				 fbObject.$save();
+				 localStorage.setItem('forms', JSON.stringify(api.normalize('arr', fbObject)));
+				 localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', data[id])));
+				 }, function (error) {
+				 console.log(error);
+				 });*/
 			},
 			removeForm: function (index) {
 				console.log('removing form', index);
@@ -501,23 +495,45 @@ angular.module('app.services', [])
 			},
 			navigateForm: function (direction) {
 				direction === 'back' ? (
-					console.log('going going back back to acali cali'),
-						Ui.back = true,
+					Ui.back = true,
 						api.currentForm.progress == 1 ?
 							api.go('dapa.forms') :
-							(api.go('dapa.newForm', api.currentForm.$id, api.currentForm.progress - 1), api.currentForm.progress = api.currentForm.progress - 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
+							(api.go('dapa.newForm', api.currentForm.timestamp, api.currentForm.progress - 1), api.currentForm.progress = api.currentForm.progress - 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
 							)
 				) :
 					(
-						console.log('going going forward forward to acali cali'),
 							Ui.back = false,
 							api.currentForm.progress > Ui.formModel.length ?
 								api.go('dapa.forms') :
-								(api.go('dapa.newForm', api.currentForm.$id, api.currentForm.progress + 1), api.currentForm.progress = api.currentForm.progress + 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
+								(api.go('dapa.newForm', api.forms.indexOf(api.currentForm), api.currentForm.progress + 1), api.currentForm.progress = api.currentForm.progress + 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
 								)
 					);
 
-				api.updateForm(api.currentForm.$id, api.currentForm);
+				api.updateForm(api.currentForm.timestamp, api.currentForm);
+			},
+			setUserData: function () {
+
+				localStorage.data ?
+						api.userData = JSON.parse(localStorage.data)
+						: api.go('dapa.welcome');
+
+				api.forms = localStorage.forms ? JSON.parse(localStorage.forms) : [];
+
+				/*if (api.userData) {
+					var fbArray = $firebaseArray(fbRef.child('users/' + api.userData.id + '/forms'));
+					fbArray.$loaded().then(function (forms) {
+						api.forms = api.userData.forms || [];
+						localStorage.setItem('forms', JSON.stringify(forms));
+					});
+				}*/
+
+				if (api.forms[0]) {
+					api.currentForm = api.forms[api.forms.length - 1];
+				}
+
+
+				console.log(api);
+
 			}
 		};
 		api.setUserData();
