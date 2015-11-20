@@ -83,9 +83,9 @@
 
 <div ng-show="cancelForm" class="modal-dark w100 h100">
     <div class="flex-column center-container center">
-        <div class="flex-column welcome text-center h-center w80 h50 modal center">
+        <div class="flex-column welcome text-center h-center w80 h80 modal center">
             <div class="w80">
-                <h3>Want to save your progress</h3>
+                <h3>Want to save your progress?</h3>
                 <br>
 
                 <div>Save your form now and you'll be able to get back to it later from where you left off. If you
@@ -99,7 +99,7 @@
                         Discard
                     </button>
                     <button type="button" class="button button-assertive primary flex"
-                            ng-click="dapa.ui.back = true; dapa.api.updateForm(dapa.api.currentForm.timestamp, dapa.api.currentForm); dapa.api.go('dapa.forms'); ">
+                            ng-click="dapa.ui.back = true; dapa.api.updateForm(dapa.api.forms.indexOf(dapa.api.currentForm), dapa.api.currentForm); dapa.api.go('dapa.forms'); ">
                         Save
                     </button>
                 </div>

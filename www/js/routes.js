@@ -40,13 +40,15 @@ angular.module('app.routes', [])
     })
 
     .state('dapa.form', {
-      url: '/form',
-      templateUrl: 'templates/form.html'
-    })
-
-    .state('dapa.newForm', {
-      url: '/form/:formId?section',
-      templateUrl: 'templates/form.html'
+      /* :formId is the form.timestamp, ?section is the section of the form */
+      url: '/forms/:formId?section',
+      templateUrl: 'templates/form.html',
+      onEnter: function (Api, $stateParams) {
+        /* Loop through forms to match params with form.timestamp to view sync api.currentForm */
+        angular.forEach(Api.forms, function (form) {
+          form.timestamp.toString() === $stateParams.formId ? Api.currentForm = form : null;
+        });
+      }
     })
 
 

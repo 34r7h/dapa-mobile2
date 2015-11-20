@@ -16,7 +16,7 @@
     <h3 class="text-center">Remove Forms</h3>
 
     <div class="h60 scroll bottom-shadow ">
-        <div class="text-left card padding" ng-repeat="form in dapa.api.forms">
+        <div class="text-left card padding" ng-repeat="form in dapa.api.forms track by $index">
             <a ng-click="dapa.api.removeForm($index)">
                 <br>
                 <b class="x2">{{form.first_name +' '+ form.last_name}}</b>

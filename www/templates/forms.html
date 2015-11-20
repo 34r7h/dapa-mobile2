@@ -17,10 +17,12 @@
         <h3 class="text-center">Forms</h3>
 
         <div class="h60 scroll bottom-shadow">
-            <div ng-click="dapa.api.currentForm = form; dapa.ui.back = false; dapa.api.go('dapa.newForm', form.$id, form.progress)"
-                 class="text-left card padding" ng-repeat="form in dapa.api.forms">
+            <div
+                    ng-click="dapa.api.currentForm = form; dapa.ui.back = false; dapa.api.go('dapa.form', form.timestamp, form.progress)"
+                    class="text-left card padding"
+                    ng-repeat="form in dapa.api.forms track by $index">
                 <br>
-                <b class="x2">{{form.first_name +' '+ form.last_name}}</b>
+                <b class="x2">{{form.firstName +' '+ form.lastName}}</b>
 
                 <div>{{form.timestamp | date: 'MM/dd/yyyy'}}</div>
 
@@ -43,7 +45,7 @@
         <br>
 
         <button class="button button-light button-icon icon"
-                ng-click="dapa.api.createForm(); dapa.ui.back = false; dapa.api.go('dapa.form')">
+                ng-click="dapa.api.createForm(); dapa.ui.back = false; dapa.api.go('dapa.form', dapa.api.forms.length, 1)">
             <div class="icon-stack">
                 <i class="ion-ios7-circle-outline"></i>
                 <i class="ion-plus"></i>
