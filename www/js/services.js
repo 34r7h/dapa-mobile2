@@ -11,7 +11,7 @@ angular.module('app.services', [])
 					name: 'About you',
 					complete: 15,
 					questions: [
-						{
+						/*{
 							id: 'first_name',
 							name: 'First Name',
 							type: 'input',
@@ -30,7 +30,7 @@ angular.module('app.services', [])
 							validations: {
 								maxLength: 60
 							}
-						},
+						},*/
 						{
 							id: 'country_of_residence',
 							name: 'Country of Residence',
@@ -110,7 +110,7 @@ angular.module('app.services', [])
 							condition: 'married'
 						},
 						{
-							id: 'legal_permanent_resident_parent',
+							id: 'us_citizen_parent',
 							name: 'U.S. Citizen Parent',
 							type: 'bool',
 							answers: {
@@ -276,7 +276,6 @@ angular.module('app.services', [])
 	.service('Api', ['$ionicHistory', '$http', '$state', '$window', 'Ui', function ($ionicHistory, $http, $state, $window, Ui) {
 
 		var localStorage = $window.localStorage;
-		console.log('Local Storage', localStorage);
 		var baseUrl = 'http://api.bealeandassociates.com';
 
 		var api = {
@@ -325,18 +324,15 @@ angular.module('app.services', [])
 					(
 						api.userData = JSON.parse(localStorage.data),
 							api.updateUser(api.userData),
-							api.forms = JSON.parse(api.userData.first_name),
-							console.log('userData', api.userData)
+							api.forms = JSON.parse(api.userData.first_name)
 					)
 					: api.go('dapa.welcome');
 
 				localStorage.currentForm ?
 					(
-						api.currentForm = JSON.parse(localStorage.currentForm),
-							console.log('currentForm', api.currentForm)
+						api.currentForm = JSON.parse(localStorage.currentForm)
 					)
 					: null;
-				console.log('api', api);
 			},
 
 			// app
@@ -357,7 +353,6 @@ angular.module('app.services', [])
 					Ui.showRecoverConfirmation = true;
 					Ui.confirmProfileChange = true;
 					Ui.message = data.message;
-					console.log('User update success data', data);
 				}).error(function (data) {
 					console.error('error', data);
 					Ui.error = data;
@@ -376,7 +371,6 @@ angular.module('app.services', [])
 
 			},
 			login: function (user) {
-				console.log('logging in');
 				$http.post(
 					baseUrl + '/sessions',
 					{
@@ -384,7 +378,6 @@ angular.module('app.services', [])
 					}
 				).then(
 					function (data) {
-						console.log(data);
 						Ui.back = false;
 						api.userData = data.data;
 						localStorage.setItem('data', JSON.stringify(data.data));
@@ -418,7 +411,6 @@ angular.module('app.services', [])
 			},
 			updateUser: function (user) {
 				localStorage.setItem('data', JSON.stringify(user));
-				console.log('updateUser', user);
 				$http.put(
 					baseUrl + '/users/' + api.userData.id,
 					user,
@@ -429,17 +421,14 @@ angular.module('app.services', [])
 						}
 
 					}).success(function (data) {
-					console.log('User update success data', data);
 					api.userData = data;
 					localStorage.setItem('data', JSON.stringify(data));
 				}).error(function (data) {
-					console.error('error', data);
 					data.errors === 'Not authenticated' ? api.go('dapa.login') : null;
 				});
 
 			},
 			createForm: function () {
-				console.log('saving new form', api.userData.id);
 				!api.forms ? api.forms = [] : null;
 				api.currentForm = {
 					timestamp: Date.now(),
@@ -451,22 +440,18 @@ angular.module('app.services', [])
 
 			},
 			updateForm: function (index, form) {
-				console.log('form update in progress', arguments);
 				api.forms[index] = form;
 				api.userData.first_name = JSON.stringify(api.forms);
 				api.updateUser(api.userData);
-				console.log(api.forms, api.userData);
 				localStorage.setItem('forms', JSON.stringify(api.forms));
 			},
 			removeForm: function (index) {
-				console.log('removing form', index);
 				api.forms.splice(index, 1);
 				api.userData.first_name = JSON.stringify(api.forms);
 				api.updateUser(api.userData);
 
 			},
 			submitForm: function (form) {
-				console.log('submit form', arguments[0]);
 				$http.post(
 					baseUrl + '/users/' + api.userData.id + '/screening_forms',
 					{
@@ -480,6 +465,7 @@ angular.module('app.services', [])
 
 						}).success(function (data) {
 					console.log(data);
+					Ui.message = data.message;
 					Ui.confirmSubmitForm = true;
 					Ui.success = true;
 				}).error(function (data) {
