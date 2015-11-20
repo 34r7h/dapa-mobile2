@@ -9156,9 +9156,44 @@ button:disabled.primary {
   background: #fcfcfc; }
 
 .modal {
-  background: whitesmoke;
-  border-radius: 5px;
-  position: relative; }
+  display: block;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  overflow: hidden;
+  min-height: 100%;
+  width: 100%;
+  background-color: #fff; }
+
+@media (min-width: 680px) {
+  .modal {
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%; }
+  .modal.ng-leave-active {
+    bottom: 0; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
+    height: 44px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) > * {
+    margin-top: 0; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .tabs-top > .tabs,
+  .platform-ios.platform-cordova .modal-wrapper .modal .tabs.tabs-top {
+    top: 44px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-header,
+  .platform-ios.platform-cordova .modal-wrapper .modal .bar-subheader {
+    top: 44px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-subheader {
+    top: 88px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-tabs-top {
+    top: 93px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-subheader.has-tabs-top {
+    top: 137px; }
+  .active .modal-backdrop-bg {
+    opacity: 0.5; } }
+
+.dapa-modal {
+  background: whitesmoke; }
 
 .modal-light {
   position: absolute;

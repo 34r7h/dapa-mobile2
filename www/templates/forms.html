@@ -1,21 +1,21 @@
 <div class="flex-column center-container text-center" ng-init="dapa.api.currentForm = {}">
-    <div class="flex-row between w100">
-        <div class="text-left float-left">
-            <button ng-click="dapa.ui.back = true; dapa.api.go('dapa.profile');"
-                    class="button button-assertive button-clear button-icon icon ion-ios-person-outline"></button>
-        </div>
-        <div class="text-right">
-            <button
-                    ng-click="dapa.api.go('dapa.editForms')"
-                    class="button button-clear button-assertive">
-                Edit
-            </button>
+    <div class="w100">
+        <div class="flex-row between">
+            <div class="text-left float-left">
+                <button ng-click="dapa.ui.back = true; dapa.api.go('dapa.profile');"
+                        class="button button-assertive button-clear button-icon icon ion-ios-person-outline"></button>
+            </div>
+            <div class="text-right">
+                <button
+                        ng-click="dapa.api.go('dapa.editForms')"
+                        class="button button-clear button-assertive">
+                    Edit
+                </button>
+            </div>
         </div>
     </div>
-
     <div class="w90" ng-show="dapa.api.forms">
         <h3 class="text-center">Forms</h3>
-
         <div class="h60 scroll bottom-shadow">
             <div
                     ng-click="dapa.api.currentForm = form; dapa.ui.back = false; dapa.api.go('dapa.form', form.timestamp, form.progress)"
@@ -41,7 +41,7 @@
             </div>
         </div>
     </div>
-    <div class="w50">
+    <div class="w100">
         <br>
 
         <button class="button button-light button-icon icon"

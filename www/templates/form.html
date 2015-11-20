@@ -1,29 +1,34 @@
-<form name="{{dapa.api.currentForm.timestamp}}" class="flex-column between text-center h-center " ng-init="dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress-1];
-
-">
-    <div class="flex-row between w100">
-        <div class="text-left float-left">
-            <button
-                    ng-click="dapa.api.navigateForm('back')"
-                    class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
-                Back
-            </button>
-        </div>
-        <div class="text-right">
-            <button ng-click="cancelForm = true" class="button button-clear button-assertive">Close</button>
+<form
+        name="{{dapa.api.currentForm.timestamp}}"
+        class="flex-column between text-center h-center h100"
+        ng-init="dapa.ui.formState = dapa.ui.formModel[dapa.api.currentForm.progress-1];"
+        ng-submit="dapa.ui.formState.complete === 100 ? dapa.api.submitForm(dapa.api.currentForm) : dapa.api.navigateForm()">
+    <div class="w100 h10">
+        <div class="flex-row between">
+            <div class="text-left float-left">
+                <button
+                        type="button"
+                        ng-click="dapa.api.navigateForm('back')"
+                        class="start button button-assertive button-clear button-icon icon ion-ios-arrow-back">
+                    Back
+                </button>
+            </div>
+            <div class="text-right">
+                <button
+                        type="submit"
+                        ng-click="cancelForm = true"
+                        class="button button-clear button-assertive">Close</button>
+            </div>
         </div>
     </div>
-
-    <div class="w90 scroll bottom-shadow">
+    <div class="scroll bottom-shadow h60 w90">
         <h3 ng-class="{back: dapa.ui.back}">
             {{dapa.ui.formState.name}}
         </h3>
-        <br>
-
         <div class="text-left bubble">
             <div
                     ng-repeat="question in dapa.ui.formState.questions"
-                    ng-show="(question.condition && dapa.api.currentForm[question.condition].length > 1 && dapa.api.currentForm[question.condition] !== 'false') || !question.condition">
+                    ng-if="(question.condition && dapa.api.currentForm[question.condition].length > 1 && dapa.api.currentForm[question.condition] !== 'false') || !question.condition">
                 <label ng-show="question.type === 'input'">
                     <div>
                         {{question.name | uppercase}}
@@ -34,13 +39,14 @@
                             max="{{question.validations.max}}"
                             type="{{question.subtype}}"
                             ng-model="dapa.api.currentForm[question.id]"
-                            placeholder="{{question.placeholder}}">
+                            placeholder="{{question.placeholder}}"
+                            ng-required="question.required">
 
                     <p ng-show="question.subtype != 'date'" class="error"
                        ng-animate="'animate"
                        ng-repeat="(key, error) in $parent[dapa.api.currentForm.timestamp][question.name].$error">{{key}}
                     </p>
-                    <br ng-show="!$last" />
+                    <br ng-show="!$last"/>
                 </label>
 
                 <div ng-show="question.type === 'bool'">
@@ -57,21 +63,21 @@
                         </div>
                         {{answer}}
                     </h4>
-                    <br ng-show="!$last" />
+                    <br ng-show="!$last"/>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="w80 text-left">
+    <div class="w80 h20 text-left">
 
 
         <br/>
         <b>FORM COMPLETENESS: {{dapa.ui.formState.complete}}%</b>
         <progress max="100" value="{{dapa.ui.formState.complete}}"></progress>
         <button
-                class="w100 button button-assertive primary"
-                ng-click="dapa.ui.formState.complete === 100 ? submitForm = true : dapa.api.navigateForm()">
+                type="submit"
+                class="w100 button button-assertive primary">
             {{dapa.ui.formState.complete === 100 ? 'Submit' : 'Continue'}}
         </button>
         <div>
@@ -83,7 +89,7 @@
 
 <div ng-show="cancelForm" class="modal-dark w100 h100">
     <div class="flex-column center-container center">
-        <div class="flex-column welcome text-center h-center w80 h80 modal center">
+        <div class="flex-column welcome text-center h-center w80 h80 dapa-modal center">
             <div class="w80">
                 <h3>Want to save your progress?</h3>
                 <br>
@@ -94,11 +100,15 @@
                 <br>
 
                 <div class="flex-row around w100">
-                    <button type="button" class="button button-light flex"
+                    <button
+                            type="button"
+                            class="button button-light flex"
                             ng-click="dapa.ui.back = true; dapa.api.go('dapa.forms'); ">
                         Discard
                     </button>
-                    <button type="button" class="button button-assertive primary flex"
+                    <button
+                            type="button"
+                            class="button button-assertive primary flex"
                             ng-click="dapa.ui.back = true; dapa.api.updateForm(dapa.api.forms.indexOf(dapa.api.currentForm), dapa.api.currentForm); dapa.api.go('dapa.forms'); ">
                         Save
                     </button>
@@ -108,15 +118,15 @@
     </div>
 </div>
 
-<div ng-show="submitForm" class="modal-dark w100 h100">
+<div ng-show="dapa.ui.confirmSubmitForm" class="modal-dark w100 h100">
     <!-- TODO catch success callback with confirmation number. set form as complete -->
     <div class="flex-column center-container center">
-        <div class="flex-column welcome text-center h-center w80 h50 modal center">
+        <div class="flex-column welcome text-center h-center w80 h80 dapa-modal center">
             <div class="w80">
                 <h3>Form submitted</h3>
 
                 <h2>
-                    00000000
+                    {{dapa.api.currentForm.timestamp}}
                 </h2>
 
                 <p>{{'your confirmation number' | uppercase}}</p>
@@ -124,7 +134,7 @@
                 <p>Thanks for submitting the form! One of our representatives will be in touch shortly. Check your inbox
                     for a confirmation email, too!</p>
                 <button type="button" class="button button-assertive button-block primary w100"
-                        ng-click="dapa.ui.back = false; dapa.api.go('dapa.forms'); ">
+                        ng-click="dapa.ui.back = false; dapa.ui.confirmSubmitForm = false; dapa.api.go('dapa.forms'); ">
                     Got it!
                 </button>
             </div>

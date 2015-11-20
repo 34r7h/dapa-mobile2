@@ -34,20 +34,20 @@ $assertive: #70112b !default; // primary burgundy color override
 }
 
 *, h1, h2, h3, h4, h5 {
-  font-family:'fabrica' !important;
+  font-family: 'fabrica' !important;
   -webkit-font-smoothing: subpixel-antialiased !important;
   color: rgba(151, 150, 149, 1);
 }
 
 html, body {
-  height:100%;
-  width:100%;
+  height: 100%;
+  width: 100%;
 }
-
 
 /* Form Controls */
 
-.error {color: rgba(239, 71, 58, 1);
+.error {
+  color: rgba(239, 71, 58, 1);
 }
 
 .css-form input.ng-invalid.ng-touched {
@@ -57,35 +57,37 @@ html, body {
 .css-form input.ng-valid.ng-touched {
   background-color: rgba(134, 247, 155, .02);
 }
+
 .css-form input.ng-valid.ng-pristine {
   background-color: #fff;
 }
 
-input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"]  {
+input[type="text"], input[type="password"], input[type="email"], input[type="tel"], input[type="number"], input[type="date"] {
   border-bottom: 1px solid gainsboro;
   max-width: 100%;
   min-width: 100%;
   margin: 0 0 1em 0;
-  padding:4px;
+  padding: 4px;
   font-size: 1.3em;
   font-weight: lighter;
   line-height: 22px;
   color: rgba(161, 160, 159, .9);
 }
+
 input[type="date"] {
   max-width: 60%;
   min-width: 60%;
 }
-input[readonly], input:disabled {background:rgba(0,0,0,0);}
 
-
+input[readonly], input:disabled {
+  background: rgba(0, 0, 0, 0);
+}
 
 label {
   color: rgba(131, 130, 129, 1);
   font-weight: 700;
-  width:100% !important;}
-
-
+  width: 100% !important;
+}
 
 .button.button-assertive {
   border-color: rgba(112, 17, 43, 1);
@@ -96,25 +98,26 @@ label {
 .button.button-assertive.button-clear {
   color: rgba(112, 17, 43, 1);
 }
+
 .button.button-assertive.button-clear:disabled {
-  color: rgba(153, 152, 151, 1)!important;
+  color: rgba(153, 152, 151, 1) !important;
 }
 
 button, .button {
   border-radius: 5px !important;
-  font-weight:700;
+  font-weight: 700;
 }
 
-button:active.primary , button:focus.primary   {
+button:active.primary, button:focus.primary {
   background-color: rgba(119, 18, 45, 1);
   border-color: rgba(112, 17, 43, 1);
 
 }
 
 button:disabled.primary {
-  opacity:1!important;
-  background-color: rgba(153, 152, 151, .99)!important;
-  border-color: rgba(153, 152, 151, 1)!important;
+  opacity: 1 !important;
+  background-color: rgba(153, 152, 151, .99) !important;
+  border-color: rgba(153, 152, 151, 1) !important;
 }
 
 /* Utility Classes */
@@ -122,22 +125,65 @@ button:disabled.primary {
 .card {
   background: rgba(252, 252, 252, 1);
 }
-
 .modal {
+  display: block;
+  position: absolute;
+  top: 0;
+  z-index: 10;
+  overflow: hidden;
+  min-height: 100%;
+  width: 100%;
+  background-color: #fff; }
+
+@media (min-width: 680px) {
+  .modal {
+    top: 0%;
+    right: 0%;
+    bottom: 0%;
+    left: 0%;
+  }
+  .modal.ng-leave-active {
+    bottom: 0; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {
+    height: 44px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) > * {
+    margin-top: 0; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .tabs-top > .tabs,
+  .platform-ios.platform-cordova .modal-wrapper .modal .tabs.tabs-top {
+    top: 44px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-header,
+  .platform-ios.platform-cordova .modal-wrapper .modal .bar-subheader {
+    top: 44px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-subheader {
+    top: 88px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-tabs-top {
+    top: 93px; }
+  .platform-ios.platform-cordova .modal-wrapper .modal .has-header.has-subheader.has-tabs-top {
+    top: 137px; }
+  
+  .active .modal-backdrop-bg {
+    opacity: 0.5; } }
+
+.dapa-modal {
   background: rgba(245, 245, 245, 1);
-  border-radius: 5px;
-  position: relative;
 }
 
 .modal-light {
-  position: absolute; z-index: 100; top:0; background: white;
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  background: white;
 }
+
 .modal-dark {
-  position: absolute; z-index: 100; top:0; background: rgba(0,0,0,.7);
+  position: absolute;
+  z-index: 100;
+  top: 0;
+  background: rgba(0, 0, 0, .7);
 }
 
 .center-container {
-  height: 100vh!important;
+  height: 100vh !important;
   align-items: center;
   -webkit-align-items: center;
 }
@@ -145,33 +191,105 @@ button:disabled.primary {
 .scroll {
   overflow: scroll;
 }
+
 ::-webkit-scrollbar {
-  display:none;
+  display: none;
 }
 
-.bottom-shadow {box-shadow: 0 6px 6px -4px rgba(0,0,0,.1)}
+.bottom-shadow {
+  box-shadow: 0 6px 6px -4px rgba(0, 0, 0, .1)
+}
 
-.w50 {width:50%!important; min-width:50%!important;}
-.w60 {width:60%!important; min-width:60%!important;}
-.w80 {width:80%!important; min-width:80%!important;}
-.w90 {width:90%!important; min-width:90%!important;}
-.w100 {width: 100vw !important; width:100%!important; min-width:100%!important;}
-.float-left {float:left}
+.w50 {
+  width: 50% !important;
+  min-width: 50% !important;
+}
 
-.h50 {height:50%!important; min-height:50%!important;}
-.h60 {height:60%!important; min-height:60%!important;
-  height:60vh!important; min-height:60vh!important;}
-.h80 {height:80%!important; min-height:80%!important;}
-.h90 {height:90%!important; min-height:90%!important;}
-.h100 {height: 100vh !important; height:100%!important; min-height:100vh!important;min-height:100%!important;}
+.w60 {
+  width: 60% !important;
+  min-width: 60% !important;
+}
+
+.w80 {
+  width: 80% !important;
+  min-width: 80% !important;
+}
+
+.w90 {
+  width: 90% !important;
+  min-width: 90% !important;
+}
+
+.w100 {
+  width: 100vw !important;
+  width: 100% !important;
+  min-width: 100% !important;
+}
+
+.float-left {
+  float: left
+}
+
+
+.h10 {
+  height: 10% !important;
+  min-height: 10% !important;
+
+}
+.h20 {
+  height: 20% !important;
+  min-height: 20% !important;
+
+}
+.h30 {
+  height: 30% !important;
+  min-height: 30% !important;
+
+}
+.h40 {
+  height: 40% !important;
+  min-height: 40% !important;
+
+}
+
+.h50 {
+  height: 50% !important;
+  min-height: 50% !important;
+}
+
+.h60 {
+  height: 60% !important;
+  min-height: 60% !important;
+}
+.h70 {
+  height: 70% !important;
+  min-height: 70% !important;
+}
+
+.h80 {
+  height: 80% !important;
+  min-height: 80% !important;
+}
+
+.h90 {
+  height: 90% !important;
+  min-height: 90% !important;
+}
+
+.h100 {
+  height: 100vh !important;
+  height: 100% !important;
+  min-height: 100vh !important;
+  min-height: 100% !important;
+}
 
 .icon-stack {
   font-size: 20px !important;
-  display:block !important;
+  display: block !important;
   width: 30px !important;
   height: 30px !important;
-  text-align:center !important;
-  b{
+  text-align: center !important;
+  b {
     position: absolute !important;
     left: 0 !important;
     right: 0 !important;
@@ -180,7 +298,7 @@ button:disabled.primary {
     font-size: 1.5em;
     bottom: -7px;
   }
-  i{
+  i {
     position: absolute !important;
     left: 0 !important;
     right: 0 !important;
@@ -191,7 +309,7 @@ button:disabled.primary {
     bottom: 28px;
     font-weight: bold;
   }
-  a{
+  a {
     position: relative !important;
     left: 0 !important;
     font-weight: bold;
@@ -203,23 +321,26 @@ button:disabled.primary {
   }
   a:nth-child(2) {
     position: relative;
-    bottom:38px;
+    bottom: 38px;
   }
 }
 
 progress {
-  margin:0;
-  margin-bottom:8px!important;
+  margin: 0;
+  margin-bottom: 8px !important;
 }
+
 progress[value] {
   background-color: rgba(228, 228, 228, 1);
   border-radius: 10px;
 }
+
 progress[value]::-webkit-progress-bar {
   background-color: rgba(228, 228, 228, 1);
   border-radius: 10px;
-  border: solid rgba(0,0,0,0) 1px;
+  border: solid rgba(0, 0, 0, 0) 1px;
 }
+
 progress[value]::-webkit-progress-value {
   background-color: $assertive;
   border-radius: 10px;
@@ -229,9 +350,11 @@ progress[value]::-webkit-progress-value {
 .x1 {
   font-size: 1em;
 }
+
 .x2 {
   font-size: 1.5em;
 }
+
 .x3 {
   font-size: 2em;
 }
@@ -243,25 +366,30 @@ progress[value]::-webkit-progress-value {
   -webkit-flex: 1 1 10px;
   margin: 4px;
 }
+
 .flex1 {
   flex: 0 0 100px;
   -webkit-flex: 0 0 100px;
 }
+
 .flex2 {
   flex: 0 0 200px;
   -webkit-flex: 0 0 200px;
 }
+
 .flex3 {
   flex: 0 0 300px;
   -webkit-flex: 0 0 300px;
 }
+
 .flex4 {
   flex: 0 0 300px;
   -webkit-flex: 0 0 300px;
 }
+
 .flex-column {
-  height:100%;
-  height:100vh;
+  height: 100%;
+  height: 100vh;
   display: -ms-flexbox;
   display: -webkit-flex;
   display: flex;
@@ -279,9 +407,10 @@ progress[value]::-webkit-progress-value {
   align-content: flex-start;
 
 }
+
 .flex-row {
-  width:100%;
-  min-width:100%;
+  width: 100%;
+  min-width: 100%;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -289,8 +418,8 @@ progress[value]::-webkit-progress-value {
 }
 
 .start {
-  align-self: flex-start!important;
-  -webkit-align-self: flex-start!important;
+  align-self: flex-start !important;
+  -webkit-align-self: flex-start !important;
 }
 
 .end {
@@ -298,23 +427,26 @@ progress[value]::-webkit-progress-value {
   -webkit-justify-content: flex-end;
 
 }
+
 .between {
   justify-content: space-between;
   -webkit-justify-content: space-between;
 }
+
 .around {
   justify-content: space-around;
   -webkit-justify-content: space-around;
 }
+
 .center {
   justify-content: center;
   -webkit-justify-content: center;
 }
+
 .h-center {
   align-items: center;
   -webkit-align-items: center;
 }
-
 
 /* Motion */
 
@@ -329,124 +461,127 @@ to prevent collapsing during animation*/
   position: absolute;
   left: 0;
   right: 0;
-  -webkit-transition:all .5s ease-in-out;
-  -moz-transition:all .5s ease-in-out;
-  -o-transition:all .5s ease-in-out;
-  transition:all .5s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
 }
+
 .ng-leave {
   position: absolute;
   left: 0;
   right: 0;
-  -webkit-transition:all .5s ease-in-out;
-  -moz-transition:all .5s ease-in-out;
-  -o-transition:all .5s ease-in-out;
-  transition:all .5s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
 }
 
 .ng-enter {
   opacity: 0;
-  -webkit-transform:translateX(100%);
-  -moz-transform:translateX(100%);
-  transform:translateX(100%);
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 .ng-enter-active {
   opacity: 1;
-  -webkit-transform:translateX(0px);
-  -moz-transform:translateX(0px);
-  transform:translateX(0px);
+  -webkit-transform: translateX(0px);
+  -moz-transform: translateX(0px);
+  transform: translateX(0px);
 }
 
 .ng-leave {
   opacity: 1;
-  -webkit-transform:translate3d(0, 0, 0);
-  -moz-transform:translate3d(0, 0, 0);
-  transform:translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .ng-leave-active {
   opacity: 1;
-  -webkit-transform:translateX(-100%);
-  -moz-transform:translateX(-100%);
-  transform:translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
 .back > ui-view.ng-leave-active {
   opacity: 1;
-  -webkit-transform:translateX(100%);
-  -moz-transform:translateX(100%);
-  transform:translateX(100%);
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 .back > ui-view .ng-leave {
   opacity: 1;
-  -webkit-transform:translate3d(0, 0, 0);
-  -moz-transform:translate3d(0, 0, 0);
-  transform:translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
 .back > ui-view.ng-enter-active {
   opacity: 1;
-  -webkit-transform:translateX(100%);
-  -moz-transform:translateX(100%);
-  transform:translateX(100%);
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  transform: translateX(100%);
 }
+
 .back > ui-view.ng-enter {
   opacity: 1;
-  -webkit-transform:translateX(100%);
-  -moz-transform:translateX(100%);
-  transform:translateX(100%);
+  -webkit-transform: translateX(100%);
+  -moz-transform: translateX(100%);
+  transform: translateX(100%);
 }
 
 .back > .ng-leave-active {
   opacity: 1;
-  -webkit-transform:translateY(100%);
-  -moz-transform:translateY(100%);
-  transform:translateY(100%);
+  -webkit-transform: translateY(100%);
+  -moz-transform: translateY(100%);
+  transform: translateY(100%);
 }
 
-div.ng-enter , p.ng-enter {
+div.ng-enter, p.ng-enter {
   position: relative;
-  -webkit-transition:all .3s ease-in-out;
-  -moz-transition:all .3s ease-in-out;
-  -o-transition:all .3s ease-in-out;
-  transition:all .3s ease-in-out;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
   opacity: 0;
-  -webkit-transform:translateX(0);
-  -moz-transform:translateX(0);
-  transform:translateX(0);
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  transform: translateX(0);
 }
 
-div.ng-ng-enter-active , p.ng-enter-active {
+div.ng-ng-enter-active, p.ng-enter-active {
   opacity: 1;
-  -webkit-transform:translateX(0);
-  -moz-transform:translateX(0);
-  transform:translateX(0);
+  -webkit-transform: translateX(0);
+  -moz-transform: translateX(0);
+  transform: translateX(0);
 }
 
-div.ng-leave , p.ng-leave {
+div.ng-leave, p.ng-leave {
   position: absolute;
-  -webkit-transition:all .5s ease-in-out;
-  -moz-transition:all .5s ease-in-out;
-  -o-transition:all .5s ease-in-out;
-  transition:all .5s ease-in-out;
+  -webkit-transition: all .5s ease-in-out;
+  -moz-transition: all .5s ease-in-out;
+  -o-transition: all .5s ease-in-out;
+  transition: all .5s ease-in-out;
   opacity: 1;
-  -webkit-transform:translate3d(0, 0, 0);
-  -moz-transform:translate3d(0, 0, 0);
-  transform:translate3d(0, 0, 0);
+  -webkit-transform: translate3d(0, 0, 0);
+  -moz-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
 }
 
-div.ng-leave-active , p.ng-leave-active {
+div.ng-leave-active, p.ng-leave-active {
   opacity: 0;
-  -webkit-transform:translateX(-100%);
-  -moz-transform:translateX(-100%);
-  transform:translateX(-100%);
+  -webkit-transform: translateX(-100%);
+  -moz-transform: translateX(-100%);
+  transform: translateX(-100%);
 }
 
-.ng-hide-add, h3 .ng-hide-add  {
+.ng-hide-add, h3 .ng-hide-add {
   transition: all linear 0.3s;
 }
+
 .ng-hide-remove, h3 .ng-hide-remove {
   transition: all linear 0.3s;
 }
@@ -457,8 +592,7 @@ div.ng-leave-active , p.ng-leave-active {
 }
 
 .animate-enter,
-.animate-leave
-{
+.animate-leave {
   -webkit-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
   -moz-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;
   -ms-transition: 400ms cubic-bezier(0.250, 0.250, 0.750, 0.750) all;

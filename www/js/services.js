@@ -12,7 +12,7 @@ angular.module('app.services', [])
 					complete: 15,
 					questions: [
 						{
-							id: 'firstName',
+							id: 'first_name',
 							name: 'First Name',
 							type: 'input',
 							placeholder: 'What is your given name?',
@@ -22,7 +22,7 @@ angular.module('app.services', [])
 							}
 						},
 						{
-							id: 'lastName',
+							id: 'last_name',
 							name: 'Last Name',
 							type: 'input',
 							placeholder: 'What is your family name?',
@@ -32,39 +32,42 @@ angular.module('app.services', [])
 							}
 						},
 						{
-							id: 'country',
+							id: 'country_of_residence',
 							name: 'Country of Residence',
 							type: 'input',
 							placeholder: 'The country you currently live in',
 							subtype: 'text',
 							validations: {
 								maxLength: 40
+							},
+							required: true
+						},
+						{
+							id: 'currently_living_usa',
+							name: 'Currently living in USA?',
+							type: 'bool',
+							placeholder: 'Are you currently living in the USA?',
+							answers: {
+								true: 'Yes',
+								false: 'No'
 							}
 						},
 						{
-							id: 'country',
-							name: 'Country of Residence',
-							type: 'input',
-							placeholder: 'The country you currently live in',
-							subtype: 'text',
-							validations: {
-								maxLength: 40
-							}
-						},
-						{
-							id: 'state',
+							id: 'state_of_residence',
 							name: 'State of Residence',
 							type: 'input',
 							placeholder: 'The state you currently live in',
-							subtype: 'text'
+							subtype: 'text',
+							required: true
 						},
 						{
-							id: 'age',
+							id: 'client_user_age',
 							name: 'Client/User Age',
 							type: 'input',
 							placeholder: 'How old are you?',
 							subtype: 'number',
-							validations: {max: 150}
+							validations: {max: 150},
+							required: true
 						}
 					]
 				},
@@ -83,7 +86,7 @@ angular.module('app.services', [])
 							subtype: 'radio'
 						},
 						{
-							id: 'citizenSpouse',
+							id: 'us_citizen_spouse',
 							name: 'U.S. Citizen Spouse',
 							type: 'bool',
 							answers: {
@@ -95,7 +98,7 @@ angular.module('app.services', [])
 							condition: 'married'
 						},
 						{
-							id: 'residentSpouse',
+							id: 'legal_permanent_resident_spouse',
 							name: 'Legal Permanent Resident Spouse',
 							type: 'bool',
 							answers: {
@@ -107,7 +110,7 @@ angular.module('app.services', [])
 							condition: 'married'
 						},
 						{
-							id: 'citizenParent',
+							id: 'legal_permanent_resident_parent',
 							name: 'U.S. Citizen Parent',
 							type: 'bool',
 							answers: {
@@ -118,7 +121,7 @@ angular.module('app.services', [])
 							subtype: 'radio'
 						},
 						{
-							id: 'citizenChildren',
+							id: 'us_citizen_children',
 							name: 'U.S. Citizen Children',
 							type: 'bool',
 							answers: {
@@ -129,16 +132,17 @@ angular.module('app.services', [])
 							subtype: 'radio'
 						},
 						{
-							id: 'oldestChild',
+							id: 'oldest_us_citizen_childs_age',
 							name: 'Oldest U.S. Citizen Child’s Age',
 							type: 'input',
 							placeholder: 'Age of your oldest child U.S. citizen?',
 							subtype: 'number',
 							validations: {max: 150},
-							condition: 'citizenChildren'
+							condition: 'us_citizen_children',
+							required: true
 						},
 						{
-							id: 'residentParent',
+							id: 'legal_permanent_resident_parent',
 							name: 'Legal Permanent Resident Parent',
 							type: 'bool',
 							answers: {
@@ -149,7 +153,7 @@ angular.module('app.services', [])
 							subtype: 'radio'
 						},
 						{
-							id: 'citizenSibling',
+							id: 'living_us_citizen_brother_sister',
 							name: 'Do you have a living U.S. Citizen brother or sister?',
 							type: 'bool',
 							answers: {
@@ -165,7 +169,7 @@ angular.module('app.services', [])
 					complete: 60,
 					questions: [
 						{
-							id: 'drugHistory',
+							id: 'convicted_drug_related_crime_any_country',
 							name: 'Have you been convicted of a drug related crime in any country?',
 							type: 'bool',
 							answers: {
@@ -176,7 +180,7 @@ angular.module('app.services', [])
 							subtype: 'radio'
 						},
 						{
-							id: 'murderHistory',
+							id: 'convicted_murder',
 							name: 'Have you been convicted of murder?',
 							type: 'bool',
 							answers: {
@@ -186,7 +190,7 @@ angular.module('app.services', [])
 							subtype: 'radio'
 						},
 						{
-							id: 'fraudHistory',
+							id: 'falsely_claimed_usa_citizen',
 							name: 'Have you ever falsely claimed to be a U.S. citizen?',
 							type: 'bool',
 							answers: {
@@ -202,7 +206,7 @@ angular.module('app.services', [])
 					complete: 100,
 					questions: [
 						{
-							id: 'deportationHistory',
+							id: 'deported_removed_from_usa',
 							name: 'Have you been deported or removed from the USA? ',
 							type: 'bool',
 							answers: {
@@ -212,26 +216,29 @@ angular.module('app.services', [])
 							subtype: 'radio'
 						},
 						{
-							id: 'deportationNumber',
+							id: 'times_reported_removed',
 							name: 'How many times have you been deported or removed from the USA?',
 							type: 'input',
 							placeholder: '1',
 							subtype: 'number',
-							condition: 'deportationHistory',
+							condition: 'deported_removed_from_usa',
 							validations: {
 								max: 100
-							}
+							},
+							required: true
+
 						},
 						{
-							id: 'lastDeportation',
+							id: 'last_deported_date',
 							name: 'What is the date of your last deportation?',
 							type: 'input',
 							subtype: 'date',
 							placeholder: 'When were you last deported?',
-							condition: 'deportationHistory'
+							condition: 'deported_removed_from_usa',
+							required: true
 						},
 						{
-							id: 'borderAssist',
+							id: 'illegally_assisted_other_under_18',
 							name: 'Have you ever assisted any person, other than your child who was under the age of 18 years old, to illegally cross the border into the USA?',
 							type: 'bool',
 							answers: {
@@ -241,7 +248,7 @@ angular.module('app.services', [])
 							subtype: 'radio'
 						},
 						{
-							id: 'illegalCrossing',
+							id: 'times_illegaly_crossed_into_usa',
 							name: 'How many different times have you illegally crossed the border into the USA?',
 							type: 'input',
 							placeholder: '1',
@@ -251,7 +258,7 @@ angular.module('app.services', [])
 							}
 						},
 						{
-							id: 'lastEntry',
+							id: 'last_entry_usa_authorized',
 							name: 'Was your last entry into the USA with a Visa or other documented authorization?',
 							type: 'bool',
 							answers: {
@@ -273,6 +280,8 @@ angular.module('app.services', [])
 		var baseUrl = 'http://api.bealeandassociates.com';
 
 		var api = {
+
+			// util
 			normalize: function (format, data) {
 				if (format === 'obj') {
 					var newObj = {};
@@ -293,6 +302,68 @@ angular.module('app.services', [])
 				formId ? $state.go(state, {formId: formId, section: section}) :
 					$state.go(state);
 			},
+			navigateForm: function (direction) {
+				direction === 'back' ? (
+					Ui.back = true,
+						api.currentForm.progress == 1 ?
+							api.go('dapa.forms') :
+							(api.go('dapa.form', api.currentForm.timestamp, api.currentForm.progress - 1), api.currentForm.progress = api.currentForm.progress - 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
+							)
+				) :
+					(
+						Ui.back = false,
+							api.currentForm.progress > Ui.formModel.length ?
+								api.go('dapa.forms') :
+								(api.go('dapa.form', api.currentForm.timestamp, api.currentForm.progress + 1), api.currentForm.progress = api.currentForm.progress + 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
+								)
+					);
+
+				api.updateForm(api.forms.indexOf(api.currentForm), api.currentForm);
+			},
+			syncData: function () {
+				localStorage.data ?
+					(
+						api.userData = JSON.parse(localStorage.data),
+							api.updateUser(api.userData),
+							api.forms = JSON.parse(api.userData.first_name),
+							console.log('userData', api.userData)
+					)
+					: api.go('dapa.welcome');
+
+				localStorage.currentForm ?
+					(
+						api.currentForm = JSON.parse(localStorage.currentForm),
+							console.log('currentForm', api.currentForm)
+					)
+					: null;
+				console.log('api', api);
+			},
+
+			// app
+			recover: function (email) {
+				$http.post(
+					baseUrl + '/users/password',
+					{
+						user: {
+							email: email
+						}
+					},
+					{
+						headers: {
+							'Content-Type': 'application/json'
+						}
+
+					}).success(function (data) {
+					Ui.showRecoverConfirmation = true;
+					Ui.confirmProfileChange = true;
+					Ui.message = data.message;
+					console.log('User update success data', data);
+				}).error(function (data) {
+					console.error('error', data);
+					Ui.error = data;
+					Ui.showRecoverConfirmation = true;
+				});
+			},
 			register: function (user) {
 				$http.post(baseUrl + '/users', {
 					user: user
@@ -312,18 +383,18 @@ angular.module('app.services', [])
 						session: user
 					}
 				).then(
-						function (data) {
-							console.log(data);
-							Ui.back = false;
-							api.userData = data.data;
-							localStorage.setItem('data', JSON.stringify(data.data));
-							api.forms = api.userData.first_name ? JSON.parse(api.userData.first_name) : [];
-							api.go('dapa.forms');
-						},
-						function (data) {
-							Ui.error = data.data.errors;
-							console.error('error', Ui.error)
-						}
+					function (data) {
+						console.log(data);
+						Ui.back = false;
+						api.userData = data.data;
+						localStorage.setItem('data', JSON.stringify(data.data));
+						api.forms = api.userData.first_name ? JSON.parse(api.userData.first_name) : [];
+						api.go('dapa.forms');
+					},
+					function (data) {
+						Ui.error = data.data.errors;
+						console.error('error', Ui.error)
+					}
 				);
 			},
 			logout: function () {
@@ -337,12 +408,12 @@ angular.module('app.services', [])
 						}
 					}
 				).then(
-						function(){
-							api.userData = {}
-						},
-						function (data) {
-							console.error('error', data)
-						}
+					function () {
+						api.userData = {}
+					},
+					function (data) {
+						console.error('error', data)
+					}
 				);
 			},
 			updateUser: function (user) {
@@ -376,7 +447,7 @@ angular.module('app.services', [])
 				};
 				api.forms.push(api.currentForm);
 				localStorage.setItem('forms', JSON.stringify(api.normalize('arr', api.forms)));
-				localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj',api.currentForm)));
+				localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', api.currentForm)));
 
 			},
 			updateForm: function (index, form) {
@@ -389,53 +460,32 @@ angular.module('app.services', [])
 			},
 			removeForm: function (index) {
 				console.log('removing form', index);
-				api.forms.splice(index,1);
+				api.forms.splice(index, 1);
 				api.userData.first_name = JSON.stringify(api.forms);
 				api.updateUser(api.userData);
 
-				// Firebase Mock API
-				var fbArray = $firebaseArray(fbRef.child('users/' + api.userData.uid + '/forms'));
-				fbArray.$loaded().then(function (data) {
-					var form = data[index];
-					data.$remove(form);
-					api.forms = data;
+			},
+			submitForm: function (form) {
+				console.log('submit form', arguments[0]);
+				$http.post(
+					baseUrl + '/users/' + api.userData.id + '/screening_forms',
+					{
+						screening_form: form
+					},
+						{
+							headers: {
+								'Content-Type': 'application/json',
+								'Authorization': api.userData.auth_token
+							}
+
+						}).success(function (data) {
+					console.log(data);
+					Ui.confirmSubmitForm = true;
+					Ui.success = true;
+				}).error(function (data) {
+					Ui.error = data.errors;
+					console.error('error', data);
 				});
-			},
-			navigateForm: function (direction) {
-				direction === 'back' ? (
-					Ui.back = true,
-						api.currentForm.progress == 1 ?
-							api.go('dapa.forms') :
-							(api.go('dapa.form', api.currentForm.timestamp, api.currentForm.progress - 1), api.currentForm.progress = api.currentForm.progress - 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
-							)
-				) :
-					(
-						Ui.back = false,
-							api.currentForm.progress > Ui.formModel.length ?
-								api.go('dapa.forms') :
-								(api.go('dapa.form', api.currentForm.timestamp, api.currentForm.progress + 1), api.currentForm.progress = api.currentForm.progress + 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
-								)
-					);
-
-				api.updateForm(api.forms.indexOf(api.currentForm), api.currentForm);
-			},
-			syncData: function () {
-				localStorage.data ?
-						(
-								api.userData = JSON.parse(localStorage.data),
-								api.updateUser(api.userData),
-								api.forms = JSON.parse(api.userData.first_name),
-								console.log('userData', api.userData)
-						)
-					: api.go('dapa.welcome');
-
-				localStorage.currentForm ?
-						(
-								api.currentForm = JSON.parse(localStorage.currentForm),
-								console.log('currentForm', api.currentForm)
-						)
-						: null;
-				console.log('api', api);
 			}
 		};
 		api.syncData();
