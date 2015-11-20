@@ -9245,15 +9245,33 @@ button:disabled.primary {
 .float-left {
   float: left; }
 
+.h10 {
+  height: 10% !important;
+  min-height: 10% !important; }
+
+.h20 {
+  height: 20% !important;
+  min-height: 20% !important; }
+
+.h30 {
+  height: 30% !important;
+  min-height: 30% !important; }
+
+.h40 {
+  height: 40% !important;
+  min-height: 40% !important; }
+
 .h50 {
   height: 50% !important;
   min-height: 50% !important; }
 
 .h60 {
   height: 60% !important;
-  min-height: 60% !important;
-  height: 60vh !important;
-  min-height: 60vh !important; }
+  min-height: 60% !important; }
+
+.h70 {
+  height: 70% !important;
+  min-height: 70% !important; }
 
 .h80 {
   height: 80% !important;

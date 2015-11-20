@@ -1,4 +1,4 @@
-angular.module('app.services', [])
+angular.module('app.services')
 	.service('Ui', ['$window', function ($window) {
 		var ui = {
 			dHeight: $window.innerHeight,
@@ -6,31 +6,32 @@ angular.module('app.services', [])
 			formModel: [
 				/*
 				 * validations: object of {camelCased html5 errors}
-				 * condition: string id of another question that must be true on the scope*/
+				 * condition: string id of another question that must be true on the scope
+				 * */
 				{
 					name: 'About you',
 					complete: 15,
 					questions: [
 						/*{
-							id: 'first_name',
-							name: 'First Name',
-							type: 'input',
-							placeholder: 'What is your given name?',
-							subtype: 'text',
-							validations: {
-								maxLength: 60
-							}
-						},
-						{
-							id: 'last_name',
-							name: 'Last Name',
-							type: 'input',
-							placeholder: 'What is your family name?',
-							subtype: 'text',
-							validations: {
-								maxLength: 60
-							}
-						},*/
+						 id: 'first_name',
+						 name: 'First Name',
+						 type: 'input',
+						 placeholder: 'What is your given name?',
+						 subtype: 'text',
+						 validations: {
+						 maxLength: 60
+						 }
+						 },
+						 {
+						 id: 'last_name',
+						 name: 'Last Name',
+						 type: 'input',
+						 placeholder: 'What is your family name?',
+						 subtype: 'text',
+						 validations: {
+						 maxLength: 60
+						 }
+						 },*/
 						{
 							id: 'country_of_residence',
 							name: 'Country of Residence',
@@ -272,209 +273,4 @@ angular.module('app.services', [])
 			]
 		};
 		return ui;
-	}])
-	.service('Api', ['$ionicHistory', '$http', '$state', '$window', 'Ui', function ($ionicHistory, $http, $state, $window, Ui) {
-
-		var localStorage = $window.localStorage;
-		var baseUrl = 'http://api.bealeandassociates.com';
-
-		var api = {
-
-			// util
-			normalize: function (format, data) {
-				if (format === 'obj') {
-					var newObj = {};
-					angular.forEach(data, function (val, key) {
-						newObj[key] = val;
-					});
-					return newObj;
-				} else {
-					var newArr = [];
-					angular.forEach(data, function (val) {
-						newArr.push(val);
-					});
-					return newArr;
-				}
-
-			},
-			go: function (state, formId, section) {
-				formId ? $state.go(state, {formId: formId, section: section}) :
-					$state.go(state);
-			},
-			navigateForm: function (direction) {
-				direction === 'back' ? (
-					Ui.back = true,
-						api.currentForm.progress == 1 ?
-							api.go('dapa.forms') :
-							(api.go('dapa.form', api.currentForm.timestamp, api.currentForm.progress - 1), api.currentForm.progress = api.currentForm.progress - 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
-							)
-				) :
-					(
-						Ui.back = false,
-							api.currentForm.progress > Ui.formModel.length ?
-								api.go('dapa.forms') :
-								(api.go('dapa.form', api.currentForm.timestamp, api.currentForm.progress + 1), api.currentForm.progress = api.currentForm.progress + 1, Ui.formState = Ui.formModel[api.currentForm.progress - 1]
-								)
-					);
-
-				api.updateForm(api.forms.indexOf(api.currentForm), api.currentForm);
-			},
-			syncData: function () {
-				localStorage.data ?
-					(
-						api.userData = JSON.parse(localStorage.data),
-							api.updateUser(api.userData),
-							api.forms = JSON.parse(api.userData.first_name)
-					)
-					: api.go('dapa.welcome');
-
-				localStorage.currentForm ?
-					(
-						api.currentForm = JSON.parse(localStorage.currentForm)
-					)
-					: null;
-			},
-
-			// app
-			recover: function (email) {
-				$http.post(
-					baseUrl + '/users/password',
-					{
-						user: {
-							email: email
-						}
-					},
-					{
-						headers: {
-							'Content-Type': 'application/json'
-						}
-
-					}).success(function (data) {
-					Ui.showRecoverConfirmation = true;
-					Ui.confirmProfileChange = true;
-					Ui.message = data.message;
-				}).error(function (data) {
-					console.error('error', data);
-					Ui.error = data;
-					Ui.showRecoverConfirmation = true;
-				});
-			},
-			register: function (user) {
-				$http.post(baseUrl + '/users', {
-					user: user
-				}).success(function () {
-					Ui.success = true;
-				}).error(function (data) {
-					Ui.error = data.errors;
-					console.error('error', data);
-				});
-
-			},
-			login: function (user) {
-				$http.post(
-					baseUrl + '/sessions',
-					{
-						session: user
-					}
-				).then(
-					function (data) {
-						Ui.back = false;
-						api.userData = data.data;
-						localStorage.setItem('data', JSON.stringify(data.data));
-						api.forms = api.userData.first_name ? JSON.parse(api.userData.first_name) : [];
-						api.go('dapa.forms');
-					},
-					function (data) {
-						Ui.error = data.data.errors;
-						console.error('error', Ui.error)
-					}
-				);
-			},
-			logout: function () {
-				localStorage.clear();
-				$http.delete(
-					baseUrl + '/sessions',
-					{
-						headers: {
-							'Content-Type': 'application/json',
-							'Authorization': api.userData.auth_token
-						}
-					}
-				).then(
-					function () {
-						api.userData = {}
-					},
-					function (data) {
-						console.error('error', data)
-					}
-				);
-			},
-			updateUser: function (user) {
-				localStorage.setItem('data', JSON.stringify(user));
-				$http.put(
-					baseUrl + '/users/' + api.userData.id,
-					user,
-					{
-						headers: {
-							'Content-Type': 'application/json',
-							'Authorization': api.userData.auth_token
-						}
-
-					}).success(function (data) {
-					api.userData = data;
-					localStorage.setItem('data', JSON.stringify(data));
-				}).error(function (data) {
-					data.errors === 'Not authenticated' ? api.go('dapa.login') : null;
-				});
-
-			},
-			createForm: function () {
-				!api.forms ? api.forms = [] : null;
-				api.currentForm = {
-					timestamp: Date.now(),
-					progress: 1
-				};
-				api.forms.push(api.currentForm);
-				localStorage.setItem('forms', JSON.stringify(api.normalize('arr', api.forms)));
-				localStorage.setItem('currentForm', JSON.stringify(api.normalize('obj', api.currentForm)));
-
-			},
-			updateForm: function (index, form) {
-				api.forms[index] = form;
-				api.userData.first_name = JSON.stringify(api.forms);
-				api.updateUser(api.userData);
-				localStorage.setItem('forms', JSON.stringify(api.forms));
-			},
-			removeForm: function (index) {
-				api.forms.splice(index, 1);
-				api.userData.first_name = JSON.stringify(api.forms);
-				api.updateUser(api.userData);
-
-			},
-			submitForm: function (form) {
-				$http.post(
-					baseUrl + '/users/' + api.userData.id + '/screening_forms',
-					{
-						screening_form: form
-					},
-						{
-							headers: {
-								'Content-Type': 'application/json',
-								'Authorization': api.userData.auth_token
-							}
-
-						}).success(function (data) {
-					console.log(data);
-					Ui.message = data.message;
-					Ui.confirmSubmitForm = true;
-					Ui.success = true;
-				}).error(function (data) {
-					Ui.error = data.errors;
-					console.error('error', data);
-				});
-			}
-		};
-		api.syncData();
-		return api;
 	}]);
-

@@ -1,3 +1,13 @@
+<!--
+
+The form works by tracking the progress property of a form. Progress means which section of the form the user was last at. The form model is located in ui.formModel.
+
+This view repeats over each section and question in the formModel in order to render each question with validations, conditionals, and required answers.
+
+Please note, the true/false questions are not inputs for better styling but that also means there's no form validation on those questions. The form is saved whenever a user touches 'Continue', 'Back', or chooses to save progress after touching 'Cancel'
+
+-->
+
 <form
         name="{{dapa.api.currentForm.timestamp}}"
         class="flex-column between text-center h-center h100"
@@ -15,7 +25,7 @@
             </div>
             <div class="text-right">
                 <button
-                        type="submit"
+                        type="button"
                         ng-click="cancelForm = true"
                         class="button button-clear button-assertive">Close</button>
             </div>

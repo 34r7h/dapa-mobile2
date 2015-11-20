@@ -22,7 +22,7 @@
                     class="text-left card padding"
                     ng-repeat="form in dapa.api.forms track by $index">
                 <br>
-                <b class="x2">{{form.firstName +' '+ form.lastName}}</b>
+                <b class="x2">{{form.firstName +' '+ form.lastName || form.timestamp}}</b>
 
                 <div>{{form.timestamp | date: 'MM/dd/yyyy'}}</div>
 
