@@ -61,8 +61,8 @@
                 <br>
                 <div ng-show="dapa.ui.error">
                     <ul>
-                        <li ng-repeat="error in dapa.ui.error">
-                            {{error}}
+                        <li ng-repeat="error in dapa.ui.error[0]">
+                            That email address {{error}}.
                         </li>
                     </ul>
                     <p>Please fix the errors or or <a class="dark" ui-sref="dapa.login">login</a>.</p>
